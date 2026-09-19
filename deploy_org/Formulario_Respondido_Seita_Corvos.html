@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossiê Confidencial - Seita dos Corvos</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
+
+        :root {
+            --bg-color: #050505;
+            --text-color: #d1d5db;
+            --accent-color: #ff3333; /* Crimson Red */
+            --accent-gold: #cfa858; /* Antique Gold */
+            --border-color: rgba(207, 168, 88, 0.3);
+            --quote-bg: rgba(255, 51, 51, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-color);
+            background-image: radial-gradient(circle at 50% 0%, rgba(255, 51, 51, 0.15) 0%, rgba(0,0,0,0) 50%);
+            color: var(--text-color);
+            line-height: 1.7;
+            margin: 0;
+            padding: 3rem 1rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: rgba(15, 15, 15, 0.95);
+            padding: 4rem;
+            border-radius: 4px;
+            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 0 1px var(--border-color);
+            position: relative;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
+        }
+
+        h1 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-gold);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.5rem;
+            margin-bottom: 2.5rem;
+            text-shadow: 0 0 15px rgba(207, 168, 88, 0.3);
+        }
+
+        h3 {
+            font-family: 'Cinzel', serif;
+            color: var(--accent-color);
+            margin-top: 3.5rem;
+            border-bottom: 1px solid rgba(255, 51, 51, 0.3);
+            padding-bottom: 0.5rem;
+            font-size: 1.5rem;
+            letter-spacing: 1px;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
+        }
+
+        h4 {
+            font-family: 'Inter', sans-serif;
+            color: var(--accent-gold);
+            margin-top: 2rem;
+            margin-bottom: 0.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        p {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+            font-weight: 300;
+        }
+
+        b, strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        blockquote {
+            background-color: var(--quote-bg);
+            border-left: 3px solid var(--accent-color);
+            margin: 2.5rem 0;
+            padding: 1.5rem 2rem;
+            font-style: italic;
+            color: #e5e7eb;
+            font-family: 'Cinzel', serif;
+            font-size: 1.1rem;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+        }
+
+        hr {
+            border: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
+            margin: 3rem 0;
+        }
+
+        ul, ol {
+            margin-bottom: 1.5rem;
+            padding-left: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.8rem;
+            font-weight: 300;
+        }
+
+        li b {
+            color: var(--accent-gold);
+        }
+
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-color); 
+        }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color); 
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--accent-color); 
+        }
+    </style>
+</head>
+<body>
+    <div style="max-width: 850px; margin: 0 auto 1.5rem auto; display: flex; justify-content: space-between; align-items: center; background: rgba(20,20,20,0.95); border: 1px solid rgba(207,168,88,0.35); padding: 0.75rem 1.5rem; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
+        <a href="index.html" style="color: #cfa858; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+            <span>⬅️</span> Voltar ao Dossiê da Seita dos Corvos
+        </a>
+        <span style="color: #aaa; font-size: 0.8rem; font-family: 'Inter', sans-serif;">Sobrevivendo ao Horror // Documentação</span>
+    </div>
+
+<div class="container">
+    <h1>Formulário de Organização<br><small style="font-size: 0.6em; color: #9ca3af;">Dossiê Confidencial</small></h1>
+
+    <blockquote>"Há sombras que não nascem da luz, mas da pura ausência dela. Nós não caçamos o absurdo; nós o orquestramos." <br>— <i>Arquivos Fragmentados do Ninho.</i></blockquote>
+
+    <h3>Qual o nome de sua Organização?</h3>
+    <p><b>A Seita dos Corvos</b></p>
+
+    <h3>Descreva a Logo de sua Organização, apresentando cada detalhe para que ela possa ser ilustrada.</h3>
+    <p>O emblema da Seita dos Corvos transcende uma simples insígnia militar; ele atua como um selo arcano, desenhado para canalizar e dissipar o medo.</p>
+    <p>O fundo é composto por um círculo rúnico escurecido, assemelhando-se ao metal resfriado no vácuo. Ao longo de toda a sua circunferência, cuneiformes de um idioma nórdico há muito esquecido serpenteiam pelas bordas — não apenas como estética, mas sugerindo uma proteção esotérica, um selamento de portas que jamais deveriam ser abertas.</p>
+    <p>No coração desse círculo, repousa o Corvo. Gravado em alto relevo, ele é capturado de perfil, como um vigilante silencioso que julga de longe. O diferencial sombrio reside em seus olhos: o corvo ostenta um visor tático de lentes duplas, uma fusão brutal e poética entre o xamanismo ancestral e a tecnologia cibernética de ponta. As penas são esculpidas com um nível de precisão cirúrgica, sugerindo a força fria de uma máquina e a reverência de uma divindade morta.</p>
+    <p>Atrás da silhueta da ave, o interior do círculo é tomado por trilhas geométricas de circuitos eletrônicos. No centro do peito do animal, um alvo concêntrico marca o ponto de impacto, servindo tanto como mira balística quanto como núcleo ritualístico.</p>
+    <p>Para selar o pacto visual, duas armas cruzam o fundo em um temível "X": à esquerda, uma katana estilizada, cujas lâminas estão gravadas com os mesmos circuitos eletrônicos, pulsando tecnologia letal. À direita, uma pesada adaga cerimonial de empunhadura rústica, exalando a ferrugem da ancestralidade. Abaixo dessa heráldica impiedosa, a tipografia impõe autoridade. As letras serifadas, talhadas em traços clássicos e inabaláveis, declaram o nome silencioso: <b>SEITA DOS CORVOS</b>.</p>
+
+    <h3>Apresente a história de sua organização! Detalhe como ela foi originada, suas principais influências conceituais e objetos.</h3>
+    <p><b>A Gênese Oculta e a Busca pelo Equilíbrio</b><br>
+    Nas brumas geladas da pré-história nórdica, quando o medo primordial ainda era a única linguagem da humanidade, nasceram os primeiros Xamãs-Guerreiros. Eles não desejavam exterminar o Outro Lado, pois sabiam que a escuridão era necessária para moldar a luz. A Seita dos Corvos é a evolução final — e implacável — dessa crença. Eles operam como uma força paramilitar clandestina onde a tecnologia de guerra de ponta se abraça violentamente à espiritualidade esotérica e ao misticismo nórdico. A missão da Seita nunca foi "salvar o mundo", mas sim manter o tecido frágil que o separa do Outro Lado milimetricamente equilibrado. Para a Seita, uma anomalia paranormal desenfreada e uma cruzada genocida contra entidades são igualmente perigosas.</p>
+
+    <p><b>O Ninho (Base de Operações)</b><br>
+    Profundamente enterrada no solo congelado da Noruega, protegida sob a fachada inofensiva do <i>Museu Nacional de Arte Viking</i>, jaz o "Ninho". Camada após camada de concreto reforçado, odores de incenso e fiação de fibra ótica guardam os corredores metálicos da Seita. Múltiplas organizações já tentaram invadir essa base ao longo dos séculos. O resultado é sempre o mesmo: satélites perdem o sinal, drones caem silenciosamente e invasores humanos são encontrados a quilômetros de distância, vagando pelas neves com suas memórias irrevogavelmente apagadas. O Ninho não aceita inscrições, e não realiza recrutamentos vulgares. Aqueles que têm a sensibilidade de ouvir os "sussurros" do museu são vigiados por semanas antes de receberem o convite. Um convite que, uma vez feito, não pode ser recusado.</p>
+
+    <p><b>O Som como Arma e a Tecnologia Viva</b><br>
+    Para os Corvos, a essência do Véu (a membrana entre os mundos) não é feita de carne ou luz, mas de <i>Frequência Acústica</i>. Som é a estrutura que compõe o universo. Eles empunham o próprio som como tecnologia e armamento. Desde exoesqueletos biomecânicos e drones com IA arcana (ÆON) a instrumentos rituais esculpidos de ossos alienígenas, a Seita estuda a física do Oculto. A arte e a música não são meros hobbies para seus agentes; são os estabilizadores cognitivos essenciais, a última muralha de lucidez quando o mundo ao redor desaba na loucura.</p>
+
+    <h3>Descreva a forma que sua Organização funciona! De qual maneira sua Organização se porta em relação ao Outro Lado? Qual o estilo de missões feitas por ela? Que abordagem esta Organização tem em suas missões? São mais furtivos ou diretos? Costumam ser metódicos ou buscam um enfrentamento direto? Ela possui algum procedimento especifico em relação a algo? Como a Ordem tinha para Ocultistas.</h3>
+
+    <p><b>A Tática do Silêncio e a Dupla Hierarquia</b><br>
+    A Seita dos Corvos opera como uma lâmina na garganta da própria realidade. Seu funcionamento é balizado por uma hierarquia dicotômica: <br>
+    1. <b>A Estrutura Militar</b>, que decide quem entra no campo de batalha, elabora táticas de infiltração absolutas e puxa o gatilho.<br>
+    2. <b>A Estrutura Ritualística (Círculos de Frequência, Véu e Olho Fechado)</b>, que decide quem tem permissão para olhar para o Outro Lado sem perder a mente, orquestrando rituais complexos.</p>
+
+    <p>Em missões, a Seita é o epítome do que é ser furtivo e metódico. O enfrentamento direto é considerado uma falha de planejamento; a violência bruta e ruidosa perturba as frequências do Véu. O Corvo entra nas sombras, neutraliza ameaças utilizando combate vibracional ou execuções silenciosas, sela as fendas interdimensionais e extrai artefatos corrompidos sem que a Ordem da Realitas, ou mesmo a sociedade civil, saiba que estiveram lá. O objetivo final é o apagamento cirúrgico de sua própria passagem.</p>
+
+    <p><b>Relação Simbiótica com o Medo</b><br>
+    A relação com o Outro Lado é fria, analítica e despida de ódio emocional. Entidades não são aberrações a serem punidas; são sintomas de uma fissura que requer sutura.</p>
+
+    <p><b>Procedimento Específico: O Protocolo do Vínculo e o Silêncio Ritual</b><br>
+    Na Seita, o uso da palavra é restrito durante o campo. O silêncio é a doutrina; as ordens táticas são dadas via comunicação neural ou por sinais manuais. Caso o "Corvo" (animal espiritual vinculado a um agente) se afaste ou mostre sinais de agitação extrema, o <i>Protocolo de Ruptura</i> é acionado: a missão é imediatamente suspensa e o agente é retirado da linha de frente para passar por uma higienização psíquica compulsória, sem espaço para heroísmos tolos.</p>
+
+    <h3>Qual o membro principal de sua Organização? Pode ser seu fundador ou atual líder, o descreva e apresente quais seriam suas principais capacidades e habilidades, para que possa ser criada sua mecânica de aliado ou de Ameaça da Realidade.</h3>
+
+    <p><b>CROW, O ARQUITETO DAS SOMBRAS</b></p>
+    <blockquote>"Quando o Véu se rasga, ele não nos engole; ele apenas abre alas para Crow passar."</blockquote>
+
+    <p><b>O Dossiê:</b><br>
+    Crow é o núcleo gravitacional da Seita. Um antigo Viríssimo da Ordem da Realitas, ele foi expurgado devido às suas ideologias revolucionárias e sua obsessão fria com o sistema funcional do Véu. Preso fisicamente aos seus 37 anos de idade devido a um experimento interdimensional que foi perfeitamente bem-sucedido — porém catastroficamente assustador —, Crow fundiu parte de sua própria consciência com o fluxo do Véu. Ele não possui ódio, piedade ou euforia; sua mente transcendeu para um estado de pura análise cósmica.</p>
+
+    <p><b>Como Ameaça ou Aliado:</b><br>
+    Sua presença em campo não envolve trocas de socos ou disparos triviais. Ao se aproximar, o cenário desmorona sob uma <i>Anomalia Tática</i>. A temperatura local cai bruscamente; a umidade congela, rádios transmitem estáticas incompreensíveis, e a própria narrativa do tempo parece travar.<br>
+    - <b>Se Aliado:</b> Crow intervém nos momentos em que o grupo enfrentaria a Morte Certa, selando fendas ou "desfazendo" anomalias. No entanto, o custo de seu resgate é profundo, resultando na perda permanente de memórias preciosas dos agentes, traumas psicológicos irreversíveis ou no sacrifício de um dos aliados para equilibrar a balança cósmica.<br>
+    - <b>Se Ameaça:</b> Crow é um desafio impensável. Ele não ataca; ele altera as regras do jogo. Capaz de manipular habilidades semelhantes às condições extremas dos rituais de Morte e Conhecimento (isolando agentes em realidades paralelas, impondo as condições <i>Lento</i>, <i>Pasmo</i> e <i>Inconsciente</i> com meros gestos, ou dissipando invocações apenas existindo). <i>O mundo inteiro é o seu tabuleiro de xadrez, e o Véu, as suas regras.</i></p>
+
+    <h3>Quais os membros mais importantes da Organização além deste (máximo 3)?</h3>
+
+    <p><b>1. LOBO – O EXECUTOR SILENCIOSO</b><br>
+    Lobo já foi um atirador de elite da Ordem, conhecido por ser a arma mais letal e disciplinada de sua divisão. Seu destino foi selado ao encontrar uma Relíquia de Conhecimento, que retalhou a sua identidade e o encheu de memórias de vidas alheias. Capturado pela Seita das Máscaras e posteriormente arrancado das garras deles em um brutal ritual de Sangue, Lobo renasceu nas mãos de Crow.<br>
+    - <b>O Papel:</b> Ele é a mão direita de Crow. Um glitch no espaço-tempo que se materializa nos piores momentos. Se o Lobo aparece, o diálogo não é mais uma opção.<br>
+    - <b>Habilidades:</b> Extremamente letal nas sombras, seus olhos inumanos prevêem padrões táticos inimigos (premunição), conferindo-lhe precisão sobrenatural e resistência mental inflexível.</p>
+
+    <p><b>2. PROXY – O TECNOMANTE INVISÍVEL</b><br>
+    Um hacker revolucionário que teve o azar — e a genialidade — de enxergar o Oculto através do fluxo do código binário da internet.<br>
+    - <b>O Papel:</b> Ele não pisa no campo de batalha, mas está em todos os dispositivos. Proxy é o fantasma digital da Seita. É através dele que registros são apagados, vídeos são corrompidos e a existência da Seita permanece um mito urbano.<br>
+    - <b>Habilidades:</b> Fala em frequências com camadas duplas e triplas de voz sintetizada. Consegue desativar redes elétricas de bairros inteiros, invadir drones inimigos e projetar vírus que causam surtos psicóticos através de monitores e smartphones.</p>
+
+    <p><b>3. THE EYE – O ESTRATEGISTA</b><br>
+    The Eye foi, no passado, o tático militar mais brilhante da Ordo Realitas, a ponto de realizar 18 transferências forçadas de consciência para escapar da morte e continuar lutando. O processo fissurou irremediavelmente sua alma. Abandonado e instável, a Seita o reconstruiu.<br>
+    - <b>O Papel:</b> Crow o ensinou a enxergar através do som. Hoje, totalmente cego, The Eye "vê" o mundo como uma complexa sinfonia tática, onde aliados são harmonia e inimigos são ruídos que devem ser silenciados. Nenhuma equipe dá um passo no campo de batalha sem que The Eye tenha regido toda a coreografia fatal via escutas.</p>
+
+    <h3>Caso queira, pode descrever membros secundários da Organização, com funções menores ou menos propícias para aparecerem em missões. Resuma brevemente cada um deles em até dois parágrafos (máximo de 5 membros).</h3>
+
+    <p><b>NADINE – A Despertadora de Segredos</b><br>
+    Uma Oráculo amaldiçoada desde a infância. Quando Nadine adentra uma sala, segredos sujos, esquecimentos e traumas recuam em terror, forçando a verdade a vir à tona. Ela quase nunca vai a campo porque usar o seu dom tem um custo esmagador: arranca-lhe dias inteiros de sua própria memória, deixando-a oca para que o grupo descubra a verdade do Véu.</p>
+
+    <p><b>MAIKE – O Carrasco do Tempo</b><br>
+    Maike vive nos "espaços em branco" dos relógios. Ele é um agente de contenção temporal, usado exclusivamente em emergências onde frações de segundo definem o fim do mundo. Ele intercepta ações antes delas ocorrerem, mas seu corpo frágil envelhece anos a cada espasmo de manipulação interdimensional.</p>
+
+    <p><b>RAED – O Engenheiro Cirúrgico</b><br>
+    O cientista louco residente da Seita. Metade homem, metade artifício tecnológico, Raed projeta os bizarros e aterradores exoesqueletos e lâminas rúnicas usadas pelos Corvos. Suas invenções causam extrema agonia aos usuários, mas ele vê a dor apenas como uma engrenagem necessária para manter a sanidade.</p>
+
+    <p><b>DAI VERNO – O Embaixador dos Impossíveis</b><br>
+    Um ex-mágico de palco carismático que atua como diplomata. Ele costura as sombras das alianças invisíveis. É o único capaz de dialogar pacificamente com a Ordem, os Leones ou Obscurité, costurando pactos tensos sem levantar armas — sua língua afiada é seu maior e mais aterrorizante ritual.</p>
+
+    <p><b>DENIS BONES – O Gatilho do Abismo</b><br>
+    Um rapaz de apenas 17 anos com um instinto sobrenatural. Seus tiros nunca seguem apenas a física; eles atravessam as fissuras invisíveis do espaço. Ele dispara mais por intuição divina e cega do que por técnica militar. Sabe-se que seu gatilho foi forjado pelo próprio destino, e a Seita os protege como um pequeno deus da guerra em incubação.</p>
+
+    <h3>Apresente qual a mecânica única de sua Organização!</h3>
+
+    <h3>🕊️ MECÂNICA AVANÇADA – O VÍNCULO COM O CORVO</h3>
+    <p><i>(Sistema adaptado para RPG de Ordem Paranormal)</i></p>
+    <p><b>Categoria:</b> Ritual Proibido / Conexão Paranormal<br>
+    <b>Disponível para:</b> Agentes com afinidade com a Seita dos Corvos, ocultistas veteranos ou personagens que desejam um pacto sombrio com o Outro Lado.</p>
+
+    <h4>1. RITUAL DE VINCULAÇÃO</h4>
+    <p>Você liga sua alma a um Corvo do Outro Lado, uma entidade que habita entre as rachaduras da realidade. Esse corvo torna-se seu guia, espião e escudo, mas carrega em si a loucura do plano de onde veio.</p>
+    <ul>
+        <li><b>Pré-Requisitos:</b> NEX mínimo 40%; Conhecimento da Seita ou Rituais de Grau 3; Teste de Ocultismo (DT 35).</li>
+        <li><b>Custos:</b> 1d8 PE (Sanidade Permanente) e 1d4 de Dano de Sangue (ato de oferenda).</li>
+        <li><b>Componente:</b> Pena de um corvo morto exposto ao luar por 3 noites.</li>
+        <li>⚠️ <b>Falha no Ritual:</b> O Vínculo se corrompe. O corvo obtém vontade própria (controlado pelo Mestre) e pode sabotar, fugir ou até trair o agente nos piores momentos.</li>
+    </ul>
+
+    <h4>2. BENEFÍCIOS DO VÍNCULO</h4>
+    <ul>
+        <li><b>Visões do Além:</b> 1x por cena (Ação Livre). Teste de Ocultismo (DT 25). Sucesso: Revele uma ameaça oculta OU ganhe +1d6 no próximo teste. Falha: Sofra 1d4 de Dano Mental e fique Vulnerável até o próximo turno.</li>
+        <li><b>Guia Espiritual (Passivo):</b> Imune a Ataques Surpresa e +3 em Iniciativa. 
+            <ul>
+                <li><b>Reação (1x por missão):</b> Anule 1 ataque crítico sofrido. Após o uso, o corvo fica Inativo por 1d4 turnos.</li>
+            </ul>
+        </li>
+        <li><b>Canal Paranormal (Passivo):</b> +5 em Ocultismo e Rituais.
+            <ul>
+                <li><b>Custo Adicional:</b> Cada ritual exige +1 PE OU +2 na DT.</li>
+            </ul>
+        </li>
+    </ul>
+
+    <h4>3. MORTE DO CORVO</h4>
+    <p>A destruição do corvo não é apenas física — ela quebra parte da alma do agente.</p>
+    <ul>
+        <li><b>Colapso Espiritual:</b> Perda instantânea de 2d10 PE Permanente e -2 em todos os testes por 1 sessão.</li>
+        <li><b>Teste de Vontade (DT 35):</b> Falha causa a Condição <i>Alucinado</i> e -10 em Diplomacia até o próximo descanso completo.</li>
+        <li><b>Pesadelos Contínuos:</b> Sofre -2d20 em testes de Percepção até dormir em um local sagrado ou seguro.</li>
+    </ul>
+
+    <h4>4. FORÇAR UM NOVO VÍNCULO <i>(Gera a Criação Quebrada)</i></h4>
+    <ul>
+        <li><b>Pré-Requisitos:</b> NEX mínimo 65%; Teste de Ocultismo (DT 38); Custo fixo de 5 PE permanentes; Componente (Relíquia Maldita).</li>
+        <li><b>Falha:</b> Perda permanente de -5 em Vontade.</li>
+        <li><b>Falha Crítica:</b> Uma criatura única e irreversível é gerada — <b>A Criação Quebrada</b> (veja as estatísticas na seção de Criaturas). Ela carrega fragmentos do vínculo anterior, sente tudo que o agente sente, e irá persegui-lo até matá-lo.</li>
+    </ul>
+
+    <h4>OS 4 MODELOS DE CORVOS (Mecânica de Familiar)</h4>
+    <p><b>Regra Base:</b> O Corvo possui Pontos de Vida (PV) iguais à metade dos PVs máximos do jogador. Ele não ataca diretamente e age no seu turno.</p>
+    <ul>
+        <li><b>1. O Corvo-Sentinela:</b> <i>Foco em Percepção e Suporte.</i><br>
+        <b>Buff Passivo:</b> +5 permanente em Percepção e Iniciativa.<br>
+        <b>Habilidade (Grasnido de Alerta):</b> 1x por cena, avisa sobre perigos invisíveis. Você e aliados em alcance curto ignoram a condição <i>Desprevenido</i> ou <i>Surpreendido</i> na primeira rodada.</li>
+        <li><b>2. O Corvo-Açougueiro:</b> <i>Foco em Letalidade.</i><br>
+        <b>Buff Passivo:</b> +2 na Margem de Ameaça para o seu primeiro ataque de cada combate.<br>
+        <b>Habilidade (Assédio Sombrio):</b> Gastando 2 PE (Ação de Movimento), o alvo fica <i>Desprevenido</i> e <i>Vulnerável</i> apenas para o <b>seu</b> próximo ataque.</li>
+        <li><b>3. O Corvo-Guardião:</b> <i>Foco em Resistência Mental.</i><br>
+        <b>Buff Passivo:</b> +5 de Resistência a Dano (RD) Mental passiva.<br>
+        <b>Habilidade (Filtro de Pavor):</b> Como Reação (2 PE), se você ou um aliado adjacente for sofrer Dano Mental, você pode transferir <b>100% desse dano</b> para os PVs do seu Corvo.</li>
+        <li><b>4. O Corvo-Sombra:</b> <i>Foco em Infiltração.</i><br>
+        <b>Buff Passivo:</b> +5 permanente em Furtividade e Crime.<br>
+        <b>Habilidade (Manto de Penas):</b> Gastando 2 PE, cria fumaça do Outro Lado. Você pode testar Furtividade mesmo sem cobertura e no campo de visão do inimigo.</li>
+    </ul>
+
+    <h3>Descreva a primeira Trilha da Organização, detalhando os principais conceitos presentes nela e quais mecânicas, perícias ou funções de jogo que acredita serem um bom foco para elas.</h3>
+
+    <p><b>TRILHA OCULTISTA: MAESTRO DO MEDO E DA REDENÇÃO</b></p>
+    <blockquote>"O som é sua arma. O Véu é sua plateia. A realidade... sua partitura."</blockquote>
+
+    <p>O Maestro é o mestre tático definitivo. Ele não empunha revólveres ou lâminas pesadas, ele empunha o ritmo do terror. Focada no Ocultista, esta Trilha age como o pilar da equipe, convertendo o pânico iminente em pura vantagem matemática (Buffs) e enlouquecendo seus adversários com ressonâncias interdimensionais (Debuffs).<br>
+    - <b>Afinidade (NEX 50%):</b> O Mestre adquire uma <b>Batuta Ritualística</b> amaldiçoada com o Elemento escolhido. Essa batuta concede +1d em testes de Ocultismo para rituais do mesmo elemento, e diminui os custos de PE das habilidades abaixo em -1 PE.</p>
+
+    <p><b>Regras Oficiais:</b></p>
+    <ul>
+        <li><b>NEX 10% — Primeiras Notas (Custo 2 PE | Ação Padrão):</b> Você rege o combate. Um aliado em alcance curto recebe uma Ação de Movimento extra em seu próximo turno, essencial para fugas ou reposicionamentos furtivos.</li>
+        <li><b>NEX 40% — Clímax Crescente (Custo 3 PE | Ação Padrão):</b> Você inflama o ódio e a precisão do grupo. Dois aliados em alcance curto recebem imediatamente <b>+1d no teste e +2 na Margem de Ameaça</b> para seus ataques na próxima rodada, tornando-se algozes perfeitos.</li>
+        <li><b>NEX 65% — Sinfonia de Ruptura (Custo 5 PE | Ação Padrão):</b> A melodia se torna purificadora. Cancela no mesmo instante as condições mortais de sanidade (<i>Abalado, Apavorado, Enlouquecendo, Fascinado, Pasmo</i>) de todos os aliados em alcance médio. A salvação acústica.</li>
+        <li><b>NEX 99% — Ragnarok em Uníssono (Custo 10 PE | Ação Completa):</b> Você invoca o fim do mundo. Enquanto sustentar a música (concentração), todos os aliados recebem <b>Imunidade a Medo</b>, ganham <b>+5 na Defesa</b>, e recebem permanentemente <b>uma Ação de Movimento a mais</b> a cada rodada. O grupo torna-se uma legião de elite intocável.</li>
+    </ul>
+
+    <p><b>Subtrilha Variante: GUARDIÃO DAS NOTAS (Foco em Debuffs)</b><br>
+    Se o seu desejo é destroçar a mente, o Guardião das Notas converte as habilidades de suporte em puro sofrimento sonoro para as ameaças inimigas:</p>
+    <ul>
+        <li><b>NEX 40% (Dissonância Penal):</b> Gastando 2 PE, força um inimigo a fazer um teste de Vontade (contra a sua DT de Ocultismo). Caso falhe, ele mergulha em vertigem absoluta, ficando <b>Fraco e Lento</b> até o seu próximo turno.</li>
+        <li><b>NEX 65% (Ressonância Corrupta):</b> Por 5 PE, atordoa até três alvos simultaneamente. Teste de Vontade; quem falhar, adquire a temível condição de estar <b>Pasmo</b> (incapaz de realizar ações padrão) pela próxima rodada inteira.</li>
+        <li><b>NEX 99% (Réquiem da Loucura Absoluta):</b> Gastando 10 PE e uma Ação Completa, você entoa a nota final do universo. Todos os inimigos no campo de batalha devem fazer um teste de Vontade. Quem falhar enlouquece imediatamente (atacando aliados ou o nada) e sofre <b>10d10 de Dano Mental</b> letal. Quem passar sofre metade do dano e fica Pasmo.</li>
+    </ul>
+
+    <h3>Mecânica de uma página diretamente ligada à trilha de maestro ocultista (Os Instrumentos Paranormais)</h3>
+
+    <div class="mechanic-box">
+        <h4>OS 20 INSTRUMENTOS PARANORMAIS DA ORQUESTRA NEGRA</h4>
+        <blockquote>"Cada nota é um ferimento no Véu. Cada silêncio, uma sentença."</blockquote>
+        <p>Os instrumentos atuam como Itens Amaldiçoados de Categoria II (Categoria III se imbuídos de poderes). Cada instrumento combina elementos paranormais gerando efeitos acústicos que distorcem a realidade. O jogador gasta <b>2 PE</b> e sofre <b>1d4 de Dano Mental</b> para ativá-los em campo.</p>
+
+        <h4>Instrumentos de Elemento Único</h4>
+        <ol>
+            <li><b>Flauta das Almas Perdidas (Morte):</b> Esculpida em osso extraplano. Silencia mortos inquietos e expulsa entidades de corpos vivos. Revela rastros de almas invisíveis.</li>
+            <li><b>Baquetas do Vazio (Energia):</b> Metal de meteorito extradimensional. Golpes no vazio produzem explosões sonoras que empurram inimigos e quebram defesas mágicas.</li>
+            <li><b>Hangdrum Ressonante (Conhecimento):</b> Ecoa o Véu. Expande percepção revelando fraquezas, ilusões e padrões simbólicos.</li>
+            <li><b>Lira Nórdica Sombria (Morte):</b> Cordas de tendões. Mantém aliados agonizantes vivos além do possível e estabiliza colapsos.</li>
+            <li><b>Violino Ácido (Sangue):</b> Rasga convicções. Corrói a identidade emocional e reduz a vontade de lutar dos inimigos.</li>
+            <li><b>Guitarra de Ossos (Medo):</b> Ossos encaixados emitem gritos. Colapsa a coragem de grupos inteiros induzindo pânico.</li>
+            <li><b>Violoncelo Abissal (Energia):</b> Omitido na lista original, o nº 7 é de elemento combinado (veja abaixo). A Seita cataloga de forma caótica.</li>
+            <li><b>Piano Rúnico (Conhecimento):</b> Produz runas flutuantes. Amplifica rituais complexos e reduz o tempo de conjuração.</li>
+            <li><b>Harpa de Penas Negras (Medo):</b> Penas de corvos consagrados. Molda emoções coletivas, alterando o estado emocional do confronto.</li>
+            <li><b>Ocarina Ancestral (Sangue):</b> Mistura de argila e sangue. Acelera cura, restaura vigor e remove debilitações físicas temporariamente.</li>
+            <li><b>Atabaque Ritual (Medo):</b> Batidas geram "ecos vivos", duplicatas sonoras que distraem e enganam criando caos tático.</li>
+            <li><b>Berimbal Ressonante (Energia):</b> Desvia ataques, redireciona projéteis e desmonta escudos inimigos dobrando a trajetória.</li>
+            <li><b>Cabaça de Voz Oca (Morte):</b> Aprisiona dores e traumas. Quando aberta, paralisa inimigos com gritos pavorosos do abismo.</li>
+            <li><b>Khaen do Vento Antigo (Conhecimento):</b> Som de vento interdimensional. Abre microvias, facilita comunicação planar e portas simbólicas.</li>
+            <li><b>Berimbau de Boca (Sangue):</b> Modula músculos. Ajusta densidade corporal e força o vigor humano ao limite elástico.</li>
+            <li><b>Clarinete Fragmentado (Conhecimento):</b> Imita assinatura ritual. Copia padrões mágicos e cancela encantamentos complexos em andamento.</li>
+            <li><b>Flauta de Bambu do Véu (Energia):</b> Acelera o ar. Aumenta velocidade, reflexos e agilidade para reposicionamento brutal e instantâneo.</li>
+            <li><b>Didgeridoo Abissal (Morte):</b> Frequências subterrâneas extremas. Desorienta até criaturas imunes ao medo, quebrando seu foco e direção.</li>
+        </ol>
+
+        <h4>Instrumentos de Elementos Combinados</h4>
+        <ul>
+            <li><b>7. Violoncelo Abissal (Energia + Morte):</b> Notas profundas dobram a física. Objetos vibram, chão ondula. Distorce o espaço em volta.</li>
+            <li><b>16. Kasofone Proibido (Medo + Energia):</b> Instrumento instável que implanta visões horríveis e distorce a percepção de inimigos, fazendo-os atacar aliados.</li>
+            <li><b>20. Gaita de Fole da Ruptura (Energia + Medo):</b> Pressuriza o Véu. Rasga fissuras vibracionais, forçando entidades massivas a recuarem para o plano adjacente.</li>
+        </ul>
+
+        <h4>Instrumentos Colossais (Categoria IV - Cerco Tático)</h4>
+        <p><i>Requerem espaço de 2 a 4 metros quadrados, não podem ser transportados livremente. Consomem 10 PE e 2d6 de Dano Mental para ativar.</i></p>
+        <ul>
+            <li><b>21. Órgão de Tubos do Abismo (Morte + Sangue):</b> Um órgão eclesiástico maciço com tubos de artérias petrificadas. Drena a vitalidade do Maestro, mas cria uma zona de gravidade zero onde os inimigos apodrecem no ar.</li>
+            <li><b>22. Sino Tectônico (Energia + Conhecimento):</b> Um sino de três toneladas, tangido através de Exoesqueleto ou Rituais. Uma única badalada destrói construções, apaga invocações inimigas menores instantaneamente e ensurdece o plano astral.</li>
+            <li><b>23. Tambores de Artilharia (Sangue + Medo):</b> Tambores de guerra do tamanho de carros. Cada batida soa como um canhão, forçando testes de fortitude extremos, ou os corações dos inimigos explodem no peito devido à ressonância.</li>
+            <li><b>24. Carilhão do Véu Aberto (Todas as Afinidades):</b> O instrumento apocalíptico da Seita. Uma estrutura de vidros extradimensionais. Tocar o carilhão funde a realidade local com o Outro Lado, transformando todo o campo de batalha em um domínio controlado exclusivamente pelo Maestro.</li>
+        </ul>
+
+        <h4>AS 30 HABILIDADES PARA INSTRUMENTOS PARANORMAIS</h4>
+        <blockquote>"Três habilidades para criar um instrumento. Um limite — e um abismo."</blockquote>
+        <p>Todo instrumento paranormal construído pode ser imbuído escolhendo <b>3 Habilidades</b> desta lista, moldando seu poder destrutivo e função.</p>
+
+        <p><i>Manipulação do Véu:</i><br>
+        <b>1. Afinar o Véu:</b> Estabiliza a Membrana localmente, reduzindo a chance de Manifestações Espontâneas de criaturas de Energia (como <i>Anomalias</i>).<br>
+        <b>2. Rasgar a Membrana:</b> Abre microfissuras para ignorar temporariamente Resistências a Dano de criaturas maciças, como o <i>Enpap-X</i>.<br>
+        <b>3. Eco do Plano Adjacente:</b> Força criaturas Furtivas baseadas em Conhecimento (como o <i>Vulto</i>) a revelarem sua exata posição.<br>
+        <b>4. Trava de Realidade:</b> Anula o teletransporte e habilidades de Salto (como as do <i>Ocioso</i> ou do <i>Espinhal</i>).<br>
+        <b>5. Filtro Dimensional:</b> Permite diferenciar ilusões do <i>Espantalho</i> ou do <i>Carente</i> de ameaças físicas reais.<br>
+        <b>6. Sincronização Astral:</b> Trava a mira do Maestro na aura da criatura, impedindo a perda de sanidade passiva da <i>Presença Perturbadora</i>.</p>
+
+        <p><i>Controle Espiritual:</i><br>
+        <b>7. Corte de Âncora Espiritual:</b> Desfaz instantaneamente o vínculo de controle mental ou possessão (útil contra o <i>Parasita de Culpa</i>).<br>
+        <b>8. Chamado de Ecos:</b> Desorienta criaturas caçadoras baseadas em percepção cega, como o <i>Carniçal Selvagem</i>.<br>
+        <b>9. Dissipar Manifestação:</b> Cancela imediatamente as ações de ambiente perigosas de <i>Poltergeists</i> e <i>Nárzigos</i>.<br>
+        <b>10. Voz do Morto:</b> Interrompe canalizações e rituais inimigos imitando o som de entidades superiores da Morte.<br>
+        <b>11. Prisão Harmonizada:</b> Impede o deslocamento Incorpóreo (como o do <i>Fantasma</i> ou do <i>Ceifador Espiral</i>), prendendo-os no plano material.<br>
+        <b>12. Costura da Alma:</b> Anula o dano letal de mecânicas de "Morte Instantânea" (como o Enigma do Medo da <i>Degolificada</i>).</p>
+
+        <p><i>Deformação de Espaço e Corpo:</i><br>
+        <b>13. Dobra de Espaço:</b> Reduz pela metade o alcance de ataques devastadores em cone ou área (como o Sopro do <i>Zumbi Colossal</i>).<br>
+        <b>14. Modulação Muscular:</b> Ignora a condição <i>Agarrado</i> ou <i>Esmagado</i> (essencial para escapar da <i>Aberração de Carne</i>).<br>
+        <b>15. Desvio de Trajetória:</b> Refrata projéteis paranormais de Sangue (como os disparados pelo <i>Rastejador Sombrio</i>).<br>
+        <b>16. Compressão Vibracional:</b> Torna o ar espesso, retirando ações de Movimento de criaturas extremamente rápidas, como as <i>Aranhas de Vidro</i>.<br>
+        <b>17. Quebra de Postura:</b> Remove os bônus defensivos de postura de combate de humanoides armados (como <i>Cultistas</i> ou o <i>Ciborgue</i>).</p>
+
+        <p><i>Quebra de Vontade e Mente:</i><br>
+        <b>18. Colapso de Coragem:</b> Aplica a condição <i>Abalado</i> até mesmo em criaturas racionais (como inimigos da <i>Transtornada</i> ou outros Ocultistas).<br>
+        <b>19. Confusão Auditiva:</b> Faz criaturas irracionais (como o <i>Zumbi de Sangue</i>) atacarem seus próprios aliados mais próximos.<br>
+        <b>20. Medo Escalonado:</b> Desativa habilidades de Fúria e ataques múltiplos (anula instantaneamente o Frenesi do <i>Carniçal</i>).<br>
+        <b>21. Desalinhamento Mental:</b> Força falha automática em rituais e magias de Entidades de Conhecimento, como a <i>Magistrada</i>.<br>
+        <b>22. Ruptura de Memória:</b> O alvo "esquece" o agente que ia atacar, forçando a criatura a recalcular a rodada e perder sua Ação Padrão.<br>
+        <b>23. Voz Inversiva:</b> Impõe severa desvantagem (rolar 2 dados e ficar com o pior) no próximo ataque letal da <i>Telopsia</i>.<br>
+        <b>24. Visão Falsa:</b> Cria iscas holográficas que absorvem automaticamente ataques de área destrutivos (como explosões maciças).</p>
+
+        <p><i>Dissonância Emocional e Vitalidade:</i><br>
+        <b>25. Estouro de Dissonância:</b> Interrompe táticas de bando. Remove bônus de flanqueamento de matilhas de <i>Cães de Caça</i> do Outro Lado.<br>
+        <b>26. Regência Coletiva:</b> Concede <i>Imunidade</i> temporária a condições de controle mental (anula o domínio da <i>Sukkal</i>).<br>
+        <b>27. Acorde Desestabilizante:</b> Dissipa a couraça defensiva mágica ou Escudos Temporários de inimigos de Energia, como o <i>Anfitrião</i>.<br>
+        <b>28. Fluxo Vital:</b> Ignora totalmente as regras de Sangramento letal causadas por entidades afiadas, como as <i>Lâminas Paranormais</i>.<br>
+        <b>29. Pulso Rítmico:</b> O batimento do som força o corpo do grupo a ignorar dano passivo ambiental (como o Gás Asfixiante do <i>Miasma</i>).<br>
+        <b>30. Carregamento Vermelho:</b> Desperta um aliado em <i>Morrendo</i>, curando-o o suficiente para suportar um último ataque direto do Boss da campanha.</p>
+    </div>
+
+    <h3>Faça o mesmo que fez para a primeira Trilha para a segunda!</h3>
+
+    <p><b>TRILHA COMBATENTE: O COLOSSO DOS CORVOS</b></p>
+    <blockquote>"Somente na morte o nosso dever termina. Quando a carne falha, o metal herda a guerra."</blockquote>
+
+    <p>Uma fusão assombrosa entre a brutalidade <i>grimdark</i> dos super-soldados Astartes e os escudos táticos regenerativos Spartan. O Colosso veste um Exoesqueleto-Sarcófago de carapaça rúnica impenetrável. Sua função tática é ser um motor de cerco vivo.</p>
+
+    <p><b>Regras Oficiais:</b></p>
+    <ul>
+        <li><b>NEX 10% — Armadura "Dreadnought" Mjolnir:</b> Após o brutal <i>Aprimoramento Ósseo</i>, você veste a Armadura do Corvo (Conta como Proteção Pesada especial: +5 Defesa, -2 Penalidade, <b>não reduz seu deslocamento</b>). A armadura projeta um campo de força arcano. No início de cada cena, você ganha <b>PVs Temporários iguais a 10 + seu Vigor</b> (seu <i>Escudo de Energia</i>). Se os PVs temporários chegarem a 0, o escudo "quebra". Você pode gastar 2 PE e uma Ação de Movimento para reiniciar os reatores e recuperar totalmente o valor do escudo (1x por rodada).</li>
+        <li><b>NEX 40% — Fúria Astartes (Servo-Motores):</b> A armadura injeta adrenalina negra e aumenta sua massa letal. Seus ataques corpo-a-corpo e investidas pesadas recebem <b>+1d8 de Dano extra de Sangue</b>. Se você realizar a ação <i>Investida</i>, o impacto no chão estilhaça o terreno, dobrando o bônus passivo de Dano desse ataque (impacto gravitacional). Você também ganha proficiência automática com Espadas Pesadas Serrilhadas (Chainswords).</li>
+        <li><b>NEX 65% — Protocolo "Anjo da Morte":</b> Você se torna um tanque de guerra apocalíptico. Sua Redução de Dano (RD) passiva aumenta para <b>5 contra todos os tipos de dano</b>. Como <i>Reação</i>, você pode gastar 3 PE para ativar a "Blindagem de Adamantium", interceptando o ataque direcionado a um aliado em alcance curto. Você salta na frente dele e recebe <b>+10 de RD</b> exclusivamente contra aquele ataque.</li>
+        <li><b>NEX 99% — O Sarcófago Imortal:</b> <i>"Na morte, eu ainda sirvo"</i>. O trunfo supremo. Se você for levado a 0 PV e fosse morrer, os circuitos da armadura perfuram sua espinha e assumem seu sistema nervoso central e a sua alma. Você ignora a condição <i>Morrendo</i> e continua lutando normalmente por <b>3 rodadas completas</b>, com imunidade total a todos os danos e condições paranormais. Durante essas 3 rodadas, você não pode ser parado por absolutamente nada. Ao fim da 3ª rodada, a armadura desliga definitivamente e você cai inconsciente ou morre.</li>
+    </ul>
+
+    <p><b>Subtrilha Variante: O OLHO DOS CORVOS (Precisão e Artilharia)</b><br>
+    Seu foco não é absorver dano, mas causar destruição cirúrgica. Sensores ofensivos e Viseiras Arcanas transformam o Colosso numa plataforma de execução tática.</p>
+    <ul>
+        <li><b>NEX 40% (Mira HUD Automatizada):</b> Os sensores vasculham os pontos fracos do inimigo. Ao gastar 2 PE antes de atacar com uma arma à distância, você dobra a Margem de Ameaça do ataque e ignora automaticamente até 10 pontos da Redução de Dano (RD) passiva da criatura.</li>
+        <li><b>NEX 65% (Marcação de Extermínio):</b> O Olho pinta o alvo para morte. Gastando 3 PE (Ação de Movimento), você marca uma criatura. Até o fim da cena, seus ataques contra esse alvo causam <b>+2d8 de dano</b> e você passa a somar o seu valor em Percepção diretamente nas rolagens de dano, trucidando a blindagem adversária com precisão perfeita.</li>
+        <li><b>NEX 99% (Aniquilação Orbital):</b> <i>Um tiro, uma morte.</i> Uma vez por cena, gastando 10 PE e uma Ação Completa, você sincroniza os sensores da armadura com o próprio tecido do Véu. Seu próximo disparo (ou ataque) ignora completamente qualquer Defesa e RD da criatura (acerto automático). O dano final da sua arma é multiplicado por 5, e a criatura é obrigada a passar num teste de Fortitude extremo ou é instantaneamente desintegrada.</li>
+    </ul>
+
+    <h3>Faça o mesmo que fez para a primeira Trilha para a terceira!</h3>
+
+    <p><b>TRILHA ESPECIALISTA: ENGENHEIRO DO VÉU (O Construtor de Autômatos)</b></p>
+    <blockquote>"Nenhum sangue precisa ser derramado se a máquina puder sangrar no seu lugar."</blockquote>
+
+    <p>Uma fusão assombrosa entre robótica de ponta, ocultismo cibernético e comandos remotos. O Engenheiro espalha drones e construtos mecânicos pelo mapa, controlando-os com frações de intelecto. Eles interagem não mais apenas como ferramentas, mas como parceiros mortais de campo.</p>
+
+    <p><b>Regras Oficiais:</b></p>
+    <ul>
+        <li><b>NEX 10% — Sonda de Lançamento Tático:</b> O Engenheiro implanta em campo um Autômato Batedor (Minúsculo; Deslocamento 9m; Defesa 15; PVs 3x o seu NEX). Como uma Ação de Movimento, você enxerga perfeitamente pelos olhos arcanos da Sonda, ganhando +5 passivo de Bônus nas perícias Investigação e Percepção.</li>
+        <li><b>NEX 40% — Rede Tática de Apoio (Autômato Suporte):</b> Um paramédico cibernético (Pequeno; Def 18). Gastando 2 PE e Ação de Movimento, o robô injeta cura rúnica num aliado ao lado dele, restaurando instantaneamente preciosos <b>2d8+Intelecto PV</b>.</li>
+        <li><b>NEX 65% — IA Comportamental (Autonomia de Campo):</b> O intelecto da máquina desperta. Uma vez por rodada, todo construto do Engenheiro move-se por conta própria (Ação de Movimento gratuita). Focando 3 PE (Ação Padrão), o autômato avança com violência e usa Lacres Metálicos em um alvo, rolando a manobra de <i>Agarrar</i> (usando a sua Inteligência como atributo base em vez de Força). Sucesso impõe a terrível condição <b>Imóvel</b>.</li>
+        <li><b>NEX 99% — O Construto do Fim (Protocolo Ômega):</b> A apoteose da mecatrônica. Um "Gólem" assombroso de Tamanho Grande surge no campo (Defesa 25). Seu porte colossal concede Cobertura Total a quem se abrigar nas suas costas. Seu ataque mortífero: Ao custo de uma Ação Completa (5 PE), o chassi abre, disparando o <b>Canhão de Frequência do Véu</b>, gerando um ataque em cone arrasador que queima tudo pela frente causando <b>20d10</b> de puríssimo Dano misto de Conhecimento e Energia. A terra vibra; não há onde se esconder (Fortitude anula metade).</li>
+    </ul>
+
+    <p><b>Subtrilha Variante: ENGENHEIRO DE ASSALTO</b><br>
+    O caminho das armas autônomas agressivas. O drone vira uma arma de aniquilação controlada.</p>
+    <ul>
+        <li><b>NEX 40% (Robô de Batalha):</b> Ao invés de robôs de cura, a Seita aprova a construção de Máquinas de Dano Brutal. Com 2 PE e uma Ação de Movimento, o autômato avança contra a garganta do alvo. Ele não chuta, ele fatia (Dano de 2d8+INT base de Impacto ou Corte, utilizando sua rolagem de ataque com bônus de Intelecto).</li>
+        <li><b>NEX 65% (Artilharia Autônoma):</b> Em vez de aprisionar alvos (como na trilha normal), seus drones são equipados com armamento em área. Gastando 3 PE, o autômato realiza um ataque em Área (cone ou raio) que causa <b>6d8 de dano</b>. Além disso, todos os seus construtos recebem +2 passivo em testes de ataque.</li>
+        <li><b>NEX 99% (Protocolo Titã - A Máquina do Fim do Mundo):</b> Ao invés de disparar o Canhão de Frequência, o seu Gólem de combate se torna uma máquina de esmagamento contínuo, equipada com 4 braços letais. Gastando 10 PE, o Gólem avança e desfere 4 ataques consecutivos e avassaladores, cada um causando 5d10 de dano. A cada acerto consecutivo no mesmo alvo, o próximo ataque ganha +1 no multiplicador de Crítico. O inimigo é literalmente moído até virar pó.</li>
+    </ul>
+
+    <h3>Descreva a Origem especial de sua Organização. Ela pode ser algo simples, como ter crescido em meio a este ambiente, ou algo mais complexo, como uma Origem derivada da mecânica única da Organização.</h3>
+
+    <p><b>Origem: Marcado pelos Corvos</b></p>
+    <blockquote>"O abismo olhou para você, se interessou e enviou um pássaro para continuar observando."</blockquote>
+
+    <p>Você não se juntou voluntariamente a este estilo de vida enlouquecedor; foi o Véu que o notou enquanto você era mais jovem. Vultos estáticos nas esquinas, pássaros pretos o encarando, ruídos eletrônicos premonitórios no quarto à noite. Sua intuição se partiu pelo peso dessa observação extraterrena, mas abriu as portas de algo antigo dentro da sua cabeça.</p>
+    <ul>
+        <li><b>Perícias Treinadas:</b> Ocultismo e Artes (Música ou Escultura).</li>
+        <li><b>Direito do Corvo (Poder de Origem):</b> Como o mistério caminha profundamente ao seu lado, rituais cobram outro pedágio de você. Uma vez por cena, ao conjurar qualquer versão Base de um ritual conhecido, você não paga absolutamente nada do custo comum em PE. Ao invés da sua vitalidade intelectual exaurir-se, o ritual escorre diretamente do sangue e da sanidade que os corvos do Outro Lado sugam de sua mente. Você paga o custo em <b>Dano de Pontos de Vida (PV)</b> diretamente, ignorando PEs.</li>
+    </ul>
+
+
+
+    <h3>Descreva as relações que sua Organização possui com outras (sejam elas do suplemento ou as organizações oficiais do universo de Ordem Paranormal).</h3>
+
+    <ul>
+        <li><b>Ordem da Realitas (Cooperação Velada):</b> Para a Seita, a Ordem é prestativa, mas essencialmente ingênua e idealista. Os Corvos monitoram as sombras. Fornecem dicas confidenciais às escondidas e ocasionalmente os salvam de fiascos. Contudo, assim que qualquer agente da Ordem demonstra perigo para o equilíbrio da realidade, a Seita intervém e o apaga do mapa — permanentemente e sem aviso.</li>
+        <li><b>Os Leones (A Manipulação Cíclica):</b> São gangues mortais, mas incrivelmente previsíveis nas suas ambições materiais. Para a Seita, eles não são aliados nem ameaças, apenas peões. A Seita testa as capacidades dos Leones à distância, direcionando-os silenciosamente como ovelhas lobisomens num tabuleiro que jamais verão.</li>
+        <li><b>Obscurité (A Guerra Fria Arquiteta):</b> Enxerga-se espionagem, fascínio perverso e perigo mortal. O Obscurité esconde tesouros cósmicos absurdos; a Seita sabe disso e tenta penetrar em seus porões impenetráveis. Quando os agentes desses dois titans se cruzam à noite, ninguém dá tiros, mas pessoas simplesmente desaparecem. O pavor é o aperto de mãos mútuo.</li>
+        <li><b>Hellhunters (A Limpeza Cirúrgica):</b> Para a Seita dos Corvos, a destruição em massa, explosiva e caótica promovida por esses caçadores do inferno perturba excessivamente as ressonâncias puras do Véu. É frequente "limparem as bagunças ruidosas" dos Hellhunters, por vezes até mesmo executando seus agentes que gritam muito alto em direção ao abismo.</li>
+        <li><b>Seita das Máscaras (Paralelismo Ritual):</b> O silêncio. Um profundo e distante respeito tétrico. Ambas as Seitas percebem que desempenham diferentes vertentes da mesma equação de equilíbrio; nenhuma espada se ergue uma contra a outra, mas as máscaras nunca se aproximam das penas.</li>
+        <li><b>Ocultistas Profanos (Extinção Total):</b> Grupos extremistas suicidas (Transtornados, Produções do Anfitrião, Cultos do Sangue) que forçam o Véu e tentam manifestar a destruição completa são perseguidos num expurgo sádico e calculista. Contra os devotos da extinção, a Seita aplica uma aniquilação impiedosa de seus membros, rastros e histórias, garantindo que nunca sequer tenham existido nos anais humanos.</li>
+    </ul>
+
+    <hr>
+    
+    <h3>Artefato Único da Organização: BRAÇO DE SANGUE MODIFICADO</h3>
+    <p><i>Artefato – Categoria IV – Único</i></p>
+    <blockquote>"Ele pulsa como um coração que nunca descansou. Cada gota que você derrama o alimenta — e ele sempre tem fome."</blockquote>
+    <p><b>Tipo:</b> Implante Biomecânico Arcano<br>
+    <b>Origem:</b> Recuperado de uma instalação nazista destruída durante a Segunda Guerra Mundial. Soldados no local tinham corpos fundidos a metal e olhos vazios, como se a sanidade tivesse evaporado.</p>
+    
+    <h4>Propriedades Passivas Aprimoradas</h4>
+    <ul>
+        <li><b>Golpe Brutal:</b> +1d8 de dano de Sangue em ataques corpo a corpo.</li>
+        <li><b>Rasgar a Carne:</b> Seus ataques corpo a corpo ignoram RD 5 de Sangue.</li>
+        <li><b>Cicatrização Sombria:</b> O braço regenera 2d4 PV por rodada fora de combate.</li>
+        <li><b>Ancoragem Amaldiçoada:</b> Imunidade à condição <i>Desarmado</i>. O braço não pode ser arrancado por meios convencionais.</li>
+        <li><b>Força Motriz:</b> Você pode usar sua Força no lugar de Agilidade para calcular a Defesa, caso deseje (ativar/desativar como Ação Livre).</li>
+    </ul>
+
+    <h4>Habilidade Ativa: Raiva do Corrompido</h4>
+    <p><i>(Custo: 2 PE + 1d4 Sanidade Temporária | 1x por missão | Duração: 3 rodadas)</i></p>
+    <ul>
+        <li>+2 em testes de Força.</li>
+        <li>+1 ação adicional de ataque corpo a corpo por rodada.</li>
+        <li>+1d8 de dano de Sangue extra.</li>
+        <li>Imunidade a efeitos mentais, emocionais e dor.</li>
+    </ul>
+    <p><b>Limitações (Fúria Cega):</b> Você só pode atacar o alvo mais próximo. Se não houver inimigos próximos, ataca aliados por impulso (determinado aleatoriamente). Você sofre <b>–2 na Defesa</b> durante a ativação.</p>
+
+    <h4>Efeitos Pós-Uso Reforçados</h4>
+    <ul>
+        <li><b>Exaustão:</b> Role 1d6. Reduza esse valor de todos os testes físicos e de ataque até realizar um descanso curto.</li>
+        <li><b>Instabilidade Paranormal:</b> Enquanto a Raiva estiver ativa, suas maldições e poderes causam +1 de dano… mas você sofre o mesmo dano ao usá-los.</li>
+    </ul>
+
+    <h4>Marcas do Corvo & Corrupção</h4>
+    <p>Cada uso da Raiva concede 1 <i>Marca do Corvo</i>. Se acumular <b>3 Marcas</b>:</p>
+    <ul>
+        <li>O braço se funde ao corpo permanentemente (impossibilita exorcismos ou separações).</li>
+        <li>Você perde 1 Sanidade Máxima (permanente).</li>
+        <li>O braço passa a sussurrar comandos. Em uma falha crítica, ele pode assumir o controle do seu corpo (teste de Ocultismo DT 18 para resistir).</li>
+        <li>A fusão concede <b>+1 em Força permanentemente</b>.</li>
+    </ul>
+
+    <h4>Absorção Pós-Morte Aprimorada</h4>
+    <p>Ao matar uma criatura, faça um teste de Vontade DT 15.</p>
+    <ul>
+        <li><b>Falha:</b> Absorve 1d6 PV.</li>
+        <li><b>Acerto Crítico:</b> Absorve 2d6 PV, mas você sofre 1d4 de dano de Sanidade Temporária.</li>
+    </ul>
+    <p><i>O sangue absorvido pode ser armazenado por até 1 rodada para curar um aliado próximo (Ação Livre).</i></p>
+
+    <h4>Atração Paranormal: Espírito de Guerra Nórdico</h4>
+    <p>Após a 3ª ativação da Raiva, um <b>Espírito de Guerra Nórdico</b> (For 5, PV 70, RD 10, Dano 3d6 + Corrupção) começa a rastrear o usuário. Ele pode aparecer a qualquer momento em situações de conflito espiritual, desejando tomar o corpo do usuário e substituir sua alma.</p>
+
+    <h4>Ritual de Manutenção: Sangue ou Morte</h4>
+    <p>Após cada missão, você deve fazer uma oferta de sangue ao braço (sacrifício de 1d6 PV max). Caso falhe ou recuse:</p>
+    <ul>
+        <li>Perde –2 em Fortitude e Agilidade até a próxima missão.</li>
+        <li>As DTs contra o controle do braço aumentam em +2.</li>
+    </ul>
+
+    <h4>Aprimoramentos Possíveis (Runas da Seita)</h4>
+    <p>Se fundido, o braço pode evoluir ainda mais através de missões específicas e rituais complexos, recebendo Runas Elementais:</p>
+    <ul>
+        <li><b>Runas de Fogo:</b> Seus ataques podem causar incêndio em área (1m).</li>
+        <li><b>Runas de Energia:</b> Seus ataques interrompem ações conjuradas.</li>
+        <li><b>Runas de Sangue:</b> Críticos curam você em metade do dano causado.</li>
+        <li><b>Runas de Morte:</b> Ao matar uma criatura, ela não pode ser ressuscitada por meios paranormais.</li>
+    </ul>
+
+    <hr>
+
+    <h3>Poder de Energia: O JULGAMENTO DOS CORVOS</h3>
+    <p><i>(Poder Avançado para Ocultistas da Seita dos Corvos)</i></p>
+    <blockquote>"Você estende sua alma ao véu que separa os mundos e invoca os Corvos do Julgamento. Entidades astrais com penas negras e olhos dourados pairam sobre o campo de batalha, redistribuindo o equilíbrio — concedendo esperança… ou cobrando caro por ela."</blockquote>
+    <ul>
+        <li><b>Custo:</b> 6 PE</li>
+        <li><b>Tipo de Ação:</b> Reação (quando um aliado erra um ataque).</li>
+        <li><b>Alvo:</b> Um aliado visível.</li>
+        <li><b>Efeito Base:</b> O aliado rerrola o teste de ataque.</li>
+    </ul>
+
+    <h4>Julgamento dos Corvos (Role 1d6 após a rerrolagem):</h4>
+    <ol>
+        <li><b>Falha Fatal:</b> O próximo ataque do aliado é automaticamente uma falha. Ele fica <i>Vulnerável</i> (-2 Defesa) até o fim do próximo turno.</li>
+        <li><b>Dano Compartilhado:</b> Você sofre metade do dano causado pelo ataque rerrolado (arredondado para cima). Se o inimigo morrer com esse ataque, você ganha 1d4 PE temporários.</li>
+        <li><b>Dano Energético:</b> Você sofre 2d6+2 de dano de Energia (ignora Resistência). Se sobreviver, ganha RD 5 a Energia até o fim da cena.</li>
+        <li><b>Crítico Divino:</b> O ataque rerrolado é um Crítico Automático (dano dobrado). O inimigo faz um Teste de Fortitude DT 14 ou fica <i>Atordoado</i> por 1 turno.</li>
+        <li><b>Presente dos Corvos:</b> Você recupera 1d6+2 PE. Além disso, você ou o aliado ganham Vantagem no próximo teste.</li>
+        <li><b>Balança Desequilibrada:</b> Todos os aliados ganham +2 na Defesa até o fim de seus próximos turnos. Contrapartida: Todos os inimigos recebem Vantagem em seus ataques no mesmo período.</li>
+    </ol>
+
+    <h4>Afinidade com Energia:</h4>
+    <ul>
+        <li>O Custo é reduzido para <b>3 PE</b>.</li>
+        <li><b>Retribuição da Ousadia:</b> Se o resultado da rerrolagem for pior que o ataque original, você recupera 4 PE.</li>
+        <li><b>Sinergia com o Outro Lado:</b> Você pode gastar +2 PE (total 5 PE) para rolar 2d6 na tabela de Julgamento dos Corvos e escolher o resultado.</li>
+    </ul>
+
+    <hr>
+
+    <h3>A Criatura da Seita: A CRIAÇÃO QUEBRADA</h3>
+    <blockquote>"Corvos não se forçam. Eles aceitam — ou quebram. Quando quebram, arrastam o criador com eles."</blockquote>
+    <p>A Criação Quebrada é o resultado trágico de um ritual de vínculo espiritual forçado com um corvo. Na Seita dos Corvos, esse vínculo é sagrado, requer tempo, respeito e sincronia espiritual. Ocultistas que tentam acelerar o processo utilizando tecnologias proibidas ou sangue contaminado despedaçam a alma da criatura. Se a alma do corvo for forte, ela se reconstrói em uma forma vingativa e amaldiçoada. Sua existência tem um único objetivo: <b>matar seu criador.</b></p>
+
+    <ul>
+        <li><b>VD:</b> 200</li>
+        <li><b>Elementos:</b> Morte, Conhecimento e Medo.</li>
+        <li><b>Tamanho:</b> Grande.</li>
+        <li><b>Presença Perturbadora:</b> NEX 55% | DT 28 | Dano Mental: 6d6 (quem passar sofre metade).</li>
+    </ul>
+
+    <div style="background-color: rgba(255, 51, 51, 0.1); border-left: 4px solid #ff3333; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0;">
+        <h4 style="margin-top: 0; color: #ff3333; font-family: 'Cinzel', serif;">Enigma do Medo</h4>
+        <p style="margin-bottom: 0;"><strong>A morte do criador</strong>, ou o <strong>Ritual de Contenção (4º Círculo de Arrependimento)</strong>. A criatura só pode ser destruída normalmente após a morte do criador. Porém, ela pode ser temporariamente contida (removendo sua imunidade na Fase 1) através de um ritual brutal desenhado no chão com sangue do criador e penas de corvos voluntários.</p>
+    </div>
+
+    <p>A criatura só pode se manifestar quando o criador é exposto a estresse espiritual intenso, ativa um ritual ou é corrompido por medo profundo. Não pode ser contida por palavras. Ela ignora o mundo — exceto seu alvo.</p>
+
+    <h4>FASE 1: A PRESENÇA DO ABISMO</h4>
+    <p><i>Representa a culpa, o erro e o medo de falhar. Corpo humanoide encurvado, coberto por penas flutuantes. Asas rasgadas presas por fios. Um olho costurado, o outro idêntico ao do criador. Voz distorcida que imita o criador.</i></p>
+    
+    <p><b>Imunidade Absoluta:</b><br>
+    Enquanto o criador estiver vivo, a criatura é <b>completamente indestrutível</b>. Não pode sofrer dano, ser banida ou contida por nenhum meio convencional.</p>
+
+    <p><b>Ataques e Habilidades da Fase 1:</b></p>
+    <ul>
+        <li><b>Memória Fraturada (Ação Padrão):</b> Projeta uma memória do criador em um aliado aleatório. Teste de Vontade DT 25. Falha: O aliado fica mentalmente paralisado (<i>Pasmo</i>) e sofre 3d8 de Dano Mental. O criador sofre metade do dano automaticamente ao ouvir o eco do trauma.</li>
+        <li><b>Grito do Fracasso (1x por cena):</b> Emite um urro com a voz do criador no momento da falha do ritual. Cone de 9m. Teste de Vontade DT 28. Falha: Todos no alcance ficam <i>Apavorados</i> e <i>Desorientados</i>. Sucesso: <i>Abalados</i>.</li>
+        <li><b>Aura - Medo Vivo:</b> Sua mera presença causa medo físico real. Qualquer personagem que comece o turno a alcance curto perde 2 de Sanidade automaticamente (não há teste).</li>
+    </ul>
+
+    <h4>TRANSIÇÃO: QUEBRA DO VÍNCULO</h4>
+    <p>Ao matar seu criador, a Criação Quebrada grita com a voz do criador em tom de alívio. Suas asas desaparecem. A forma se retorce, assumindo um aspecto deformado envolto em sombra. Ela perde a imunidade e a <b>Fase 2</b> começa.</p>
+
+    <h4>FASE 2: A MORTE QUE ANDA</h4>
+    <p><i>A manifestação da morte inevitável. Sem fala, sem expressão, apenas o peso da fatalidade. Rosto aberto em fendas. Passos que racham o chão. Nenhum som emitido.</i></p>
+    <ul>
+        <li><b>Atributos Base:</b> AGI 4 | FOR 4 | INT 2 | PRE 4 | VIG 4</li>
+        <li><b>Defesa:</b> 35 | <b>Fortitude:</b> +18 | <b>Reflexos:</b> +20 | <b>Vontade:</b> +25</li>
+        <li><b>Pontos de Vida (PV):</b> 600</li>
+        <li><b>Imunidades:</b> Dano de Morte e Condições Mentais.</li>
+    </ul>
+
+    <p><b>Ataques e Habilidades da Fase 2:</b></p>
+    <ul>
+        <li><b>Presságio de Morte:</b> Todos que olham para ela sentem que estão prestes a morrer. Teste de Vontade DT 28. Falha: O alvo <i>Desmaia</i> (Inconsciente) por 1 rodada. Sucesso: Fica <i>Lento</i>.</li>
+        <li><b>Silêncio Cortante (Aura):</b> Apaga sons e falha dispositivos ao redor (alcance médio). Nenhuma comunicação eletrônica funciona. Para conjurar rituais que exigem verbalização, o ocultista deve passar em um Teste de Vontade DT 25 ou o ritual falha.</li>
+        <li><b>Rasgo da Alma (Ação Padrão):</b> 3x Ataques de garras que cortam carne e vitalidade. (Teste +25 | Dano 4d10+15 Morte | Crítico 19/x2). Qualquer alvo ferido por este ataque não pode receber cura ou ajuda externa até o final da cena.</li>
+    </ul>
+
+    <h4>Fraquezas e Contenção</h4>
+    <p>A criatura só pode ser destruída normalmente após a morte do criador. Porém, ela pode ser temporariamente contida através de um ritual brutal.<br>
+    <b>Ritual de Contenção:</b> Requer penas de um corvo voluntário, sangue do criador, e um Círculo de Arrependimento desenhado no chão.</p>
+    <p><i>Nota: Mesmo após destruída, as memórias corrompidas da Criação Quebrada podem amaldiçoar os sobreviventes.</i></p>
+
+</div>
+
+</body>
+</html>
