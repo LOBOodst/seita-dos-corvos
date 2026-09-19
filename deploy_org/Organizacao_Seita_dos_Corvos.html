@@ -1,0 +1,2435 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seita dos Corvos — Dossiê de Organização (Sobrevivendo ao Horror)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative:wght@700;900&family=Cinzel:wght@400;600;700;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-void: #06070a;
+            --bg-surface: #0e111a;
+            --bg-panel: rgba(18, 22, 33, 0.85);
+            --bg-card: rgba(24, 29, 44, 0.65);
+            --bg-card-hover: rgba(32, 39, 58, 0.85);
+            --gold-primary: #cfa858;
+            --gold-glow: rgba(207, 168, 88, 0.35);
+            --gold-subtle: rgba(207, 168, 88, 0.15);
+            --crimson-accent: #ff2a44;
+            --crimson-glow: rgba(255, 42, 68, 0.35);
+            --crimson-subtle: rgba(255, 42, 68, 0.12);
+            --cyan-veil: #00d2ff;
+            --cyan-glow: rgba(0, 210, 255, 0.25);
+            --text-heading: #f8fafc;
+            --text-body: #cbd5e1;
+            --text-muted: #94a3b8;
+            --border-color: rgba(207, 168, 88, 0.25);
+            --border-crimson: rgba(255, 42, 68, 0.35);
+            --radius-sm: 6px;
+            --radius-md: 10px;
+            --radius-lg: 16px;
+            --shadow-lg: 0 10px 30px -5px rgba(0, 0, 0, 0.8), 0 0 1px 1px var(--border-color);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-void);
+            background-image: 
+                radial-gradient(circle at 50% 0%, rgba(207, 168, 88, 0.08) 0%, transparent 50%),
+                radial-gradient(circle at 100% 40%, rgba(255, 42, 68, 0.06) 0%, transparent 45%),
+                radial-gradient(circle at 0% 80%, rgba(0, 210, 255, 0.04) 0%, transparent 40%);
+            background-attachment: fixed;
+            color: var(--text-body);
+            line-height: 1.75;
+            font-size: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Ambient subtle grain overlay */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            pointer-events: none;
+            opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            z-index: 9999;
+        }
+
+        /* App Container Layout */
+        .app-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sticky Navigation Sidebar */
+        .sidebar {
+            width: 290px;
+            flex-shrink: 0;
+            background: rgba(11, 14, 22, 0.94);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid var(--border-color);
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            overflow-y: auto;
+            padding: 2rem 1.25rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 100;
+        }
+
+        .sidebar-brand {
+            text-align: center;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-brand h2 {
+            font-family: 'Cinzel Decorative', 'Cinzel', serif;
+            font-size: 1.25rem;
+            color: var(--gold-primary);
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--gold-glow);
+            margin-bottom: 0.25rem;
+        }
+
+        .sidebar-brand span {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            color: var(--crimson-accent);
+            font-weight: 600;
+        }
+
+        .sidebar-search {
+            position: relative;
+        }
+
+        .sidebar-search input {
+            width: 100%;
+            padding: 0.6rem 0.8rem 0.6rem 2.2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(207, 168, 88, 0.2);
+            border-radius: var(--radius-sm);
+            color: #fff;
+            font-size: 0.85rem;
+            outline: none;
+            transition: all 0.2s;
+        }
+
+        .sidebar-search input:focus {
+            border-color: var(--gold-primary);
+            box-shadow: 0 0 10px var(--gold-subtle);
+        }
+
+        .sidebar-search svg {
+            position: absolute;
+            left: 0.7rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 14px;
+            height: 14px;
+            fill: var(--text-muted);
+        }
+
+        .nav-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.35rem;
+        }
+
+        .nav-item a {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.55rem 0.85rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            border-radius: var(--radius-sm);
+            transition: all 0.2s ease;
+            border-left: 2px solid transparent;
+        }
+
+        .nav-item a:hover {
+            color: var(--gold-primary);
+            background: var(--gold-subtle);
+            border-left-color: var(--gold-primary);
+            padding-left: 1.1rem;
+        }
+
+        .nav-item.active a {
+            color: #fff;
+            background: rgba(207, 168, 88, 0.18);
+            border-left-color: var(--crimson-accent);
+            font-weight: 600;
+        }
+
+        .nav-num {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            color: var(--crimson-accent);
+            opacity: 0.8;
+            min-width: 18px;
+        }
+
+        /* Main Content Container */
+        .main-content {
+            flex-grow: 1;
+            padding: 3rem 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Hero / Header Section */
+        .hero-header {
+            position: relative;
+            background: linear-gradient(180deg, rgba(22, 27, 41, 0.9) 0%, rgba(14, 17, 26, 0.95) 100%);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 3.5rem 3rem;
+            margin-bottom: 3.5rem;
+            box-shadow: var(--shadow-lg);
+            overflow: hidden;
+            text-align: center;
+        }
+
+        .hero-header::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), var(--crimson-accent), var(--gold-primary), transparent);
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+            padding: 0.25rem 1rem;
+            border-radius: 50px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 1.25rem;
+            background: rgba(207, 168, 88, 0.08);
+        }
+
+        .hero-title {
+            font-family: 'Cinzel Decorative', 'Cinzel', serif;
+            font-size: 3.2rem;
+            font-weight: 900;
+            color: #fff;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+            margin-bottom: 0.75rem;
+            text-shadow: 0 0 25px rgba(207, 168, 88, 0.4);
+        }
+
+        .hero-subtitle {
+            font-family: 'Cinzel', serif;
+            font-size: 1.25rem;
+            color: var(--crimson-accent);
+            letter-spacing: 3px;
+            margin-bottom: 1.75rem;
+            text-transform: uppercase;
+        }
+
+        .hero-quote {
+            max-width: 750px;
+            margin: 0 auto;
+            font-style: italic;
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.08);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 1.25rem 0;
+            position: relative;
+        }
+
+        /* Section Styling */
+        .org-section {
+            background: var(--bg-panel);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2.75rem;
+            margin-bottom: 3.5rem;
+            box-shadow: var(--shadow-lg);
+            position: relative;
+            scroll-margin-top: 2rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1.25rem;
+            margin-bottom: 2rem;
+        }
+
+        .section-title-wrap {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .section-number {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 1.1rem;
+            color: var(--crimson-accent);
+            background: var(--crimson-subtle);
+            border: 1px solid var(--border-crimson);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--radius-sm);
+            font-weight: 700;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.85rem;
+            color: var(--gold-primary);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 700;
+            text-shadow: 0 0 15px var(--gold-subtle);
+        }
+
+        .section-tag {
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 0.25rem 0.75rem;
+            border-radius: var(--radius-sm);
+            text-transform: uppercase;
+        }
+
+        /* Typography & Paragraphs */
+        h3, h4, h5 {
+            font-family: 'Cinzel', serif;
+            color: #fff;
+            margin-top: 1.75rem;
+            margin-bottom: 0.75rem;
+            letter-spacing: 0.5px;
+        }
+
+        h3 { font-size: 1.4rem; color: var(--gold-primary); }
+        h4 { font-size: 1.15rem; color: #e2e8f0; }
+        h5 { font-size: 1rem; color: var(--crimson-accent); }
+
+        p {
+            margin-bottom: 1.25rem;
+            text-align: justify;
+        }
+
+        p strong, li strong {
+            color: #fff;
+            font-weight: 600;
+        }
+
+        /* Grid Utilities */
+        .grid-2 {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.5rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        .grid-cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.25rem;
+            margin: 1.5rem 0;
+        }
+
+        /* Info Card Components */
+        .info-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(207, 168, 88, 0.2);
+            border-radius: var(--radius-md);
+            padding: 1.5rem;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .info-card:hover {
+            background: var(--bg-card-hover);
+            border-color: var(--gold-primary);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        .info-card.accent-crimson {
+            border-color: rgba(255, 42, 68, 0.25);
+        }
+        .info-card.accent-crimson:hover {
+            border-color: var(--crimson-accent);
+            box-shadow: 0 8px 20px rgba(255, 42, 68, 0.15);
+        }
+
+        .card-label {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--gold-primary);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .card-value {
+            font-size: 1.15rem;
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 0.5rem;
+        }
+
+        .card-desc {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        /* Section 3: Logo & Comp Info Showcase */
+        .logo-showcase-container {
+            display: grid;
+            grid-template-columns: 360px 1fr;
+            gap: 2.5rem;
+            align-items: center;
+            background: rgba(14, 18, 28, 0.75);
+            border: 1px solid var(--border-color);
+            border-radius: var(--radius-lg);
+            padding: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .logo-frame {
+            position: relative;
+            border-radius: 50%;
+            padding: 8px;
+            background: linear-gradient(135deg, var(--gold-primary), var(--crimson-accent), #1f2538);
+            box-shadow: 0 0 35px rgba(207, 168, 88, 0.25), 0 0 50px rgba(255, 42, 68, 0.15);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .logo-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 50%;
+            display: block;
+            border: 3px solid #08090d;
+            transition: transform 0.5s ease;
+        }
+
+        .logo-frame:hover img {
+            transform: scale(1.03);
+        }
+
+        .logo-details h4 {
+            color: var(--gold-primary);
+            font-size: 1.25rem;
+            margin-top: 0;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .heraldry-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        .heraldry-list li {
+            padding-left: 1.5rem;
+            position: relative;
+            font-size: 0.92rem;
+            line-height: 1.6;
+        }
+
+        .heraldry-list li::before {
+            content: '❖';
+            position: absolute;
+            left: 0;
+            top: 0;
+            color: var(--crimson-accent);
+            font-size: 0.85rem;
+        }
+
+        /* Pill / Badge Tags */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.2rem 0.65rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            text-transform: uppercase;
+        }
+
+        .badge-gold {
+            background: var(--gold-subtle);
+            color: var(--gold-primary);
+            border: 1px solid var(--gold-primary);
+        }
+
+        .badge-crimson {
+            background: var(--crimson-subtle);
+            color: var(--crimson-accent);
+            border: 1px solid var(--border-crimson);
+        }
+
+        .badge-cyan {
+            background: rgba(0, 210, 255, 0.12);
+            color: var(--cyan-veil);
+            border: 1px solid rgba(0, 210, 255, 0.35);
+        }
+
+        /* Custom Blockquotes */
+        blockquote {
+            background: linear-gradient(90deg, rgba(255, 42, 68, 0.08) 0%, rgba(207, 168, 88, 0.04) 100%);
+            border-left: 3px solid var(--crimson-accent);
+            border-right: 1px solid var(--border-color);
+            margin: 1.75rem 0;
+            padding: 1.25rem 1.75rem;
+            font-style: italic;
+            color: #f1f5f9;
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            border-radius: 0 var(--radius-md) var(--radius-md) 0;
+            position: relative;
+        }
+
+        /* Interactive Tabs Component */
+        .tabs-nav {
+            display: flex;
+            gap: 0.5rem;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            margin-bottom: 2rem;
+            overflow-x: auto;
+            padding-bottom: 4px;
+        }
+
+        .tab-btn {
+            background: transparent;
+            border: none;
+            padding: 0.75rem 1.5rem;
+            color: var(--text-muted);
+            font-family: 'Cinzel', serif;
+            font-size: 0.95rem;
+            font-weight: 600;
+            letter-spacing: 1px;
+            cursor: pointer;
+            border-radius: var(--radius-sm) var(--radius-sm) 0 0;
+            transition: all 0.25s ease;
+            position: relative;
+            white-space: nowrap;
+        }
+
+        .tab-btn:hover {
+            color: var(--gold-primary);
+            background: rgba(207, 168, 88, 0.08);
+        }
+
+        .tab-btn.active {
+            color: #fff;
+            background: rgba(207, 168, 88, 0.15);
+            border-bottom: 3px solid var(--gold-primary);
+        }
+
+        .tab-btn.active::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 6px;
+            height: 6px;
+            background: var(--gold-primary);
+            border-radius: 50%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.35s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Stat Block / RPG Rules Box */
+        .stat-block {
+            background: rgba(11, 14, 22, 0.9);
+            border: 1px solid var(--gold-primary);
+            border-radius: var(--radius-md);
+            padding: 1.75rem;
+            margin: 1.75rem 0;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
+            position: relative;
+        }
+
+        .stat-block::before {
+            content: '';
+            position: absolute;
+            top: -1px; left: 20px; right: 20px; height: 1px;
+            background: linear-gradient(90deg, transparent, var(--gold-primary), transparent);
+        }
+
+        .stat-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid rgba(207, 168, 88, 0.3);
+            padding-bottom: 0.75rem;
+            margin-bottom: 1.25rem;
+        }
+
+        .stat-title {
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            color: var(--gold-primary);
+            margin: 0;
+        }
+
+        .stat-meta {
+            display: flex;
+            gap: 0.75rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+        }
+
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+            gap: 0.75rem;
+            margin-bottom: 1.25rem;
+            background: rgba(0, 0, 0, 0.35);
+            padding: 1rem;
+            border-radius: var(--radius-sm);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .stat-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+
+        .stat-item-label {
+            font-size: 0.7rem;
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .stat-item-val {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #fff;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .ability-box {
+            background: rgba(255, 255, 255, 0.02);
+            border-left: 3px solid var(--gold-primary);
+            padding: 1rem 1.25rem;
+            margin-bottom: 1rem;
+            border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+        }
+
+        .ability-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.35rem;
+        }
+
+        .ability-name {
+            font-weight: 700;
+            color: #fff;
+            font-size: 0.95rem;
+        }
+
+        .ability-cost {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.75rem;
+            color: var(--cyan-veil);
+        }
+
+        /* Collapsible Accordion */
+        .accordion-item {
+            background: var(--bg-card);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: var(--radius-sm);
+            margin-bottom: 0.75rem;
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .accordion-item:hover {
+            border-color: rgba(207, 168, 88, 0.3);
+        }
+
+        .accordion-header {
+            padding: 1rem 1.25rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-family: 'Cinzel', serif;
+            font-size: 1.05rem;
+            color: #fff;
+            user-select: none;
+            transition: background 0.2s;
+        }
+
+        .accordion-header:hover {
+            background: rgba(207, 168, 88, 0.05);
+        }
+
+        .accordion-icon {
+            font-size: 0.8rem;
+            color: var(--gold-primary);
+            transition: transform 0.3s ease;
+        }
+
+        .accordion-item.open .accordion-icon {
+            transform: rotate(180deg);
+        }
+
+        .accordion-body {
+            display: none;
+            padding: 1.25rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            background: rgba(0, 0, 0, 0.2);
+            font-size: 0.92rem;
+            line-height: 1.7;
+        }
+
+        .accordion-item.open .accordion-body {
+            display: block;
+        }
+
+        /* Copy Button Utility */
+        .copy-btn {
+            background: transparent;
+            border: 1px solid rgba(207, 168, 88, 0.4);
+            color: var(--gold-primary);
+            font-size: 0.75rem;
+            padding: 0.3rem 0.65rem;
+            border-radius: var(--radius-sm);
+            cursor: pointer;
+            transition: all 0.2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+        }
+
+        .copy-btn:hover {
+            background: var(--gold-primary);
+            color: #000;
+        }
+
+        /* Table Styling */
+        .rpg-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            font-size: 0.9rem;
+        }
+
+        .rpg-table th {
+            background: rgba(207, 168, 88, 0.12);
+            color: var(--gold-primary);
+            font-family: 'Cinzel', serif;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 0.85rem 1rem;
+            text-align: left;
+            border: 1px solid var(--border-color);
+        }
+
+        .rpg-table td {
+            padding: 0.85rem 1rem;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text-body);
+        }
+
+        .rpg-table tr:nth-child(even) {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        .rpg-table tr:hover {
+            background: rgba(207, 168, 88, 0.04);
+        }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-void);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(207, 168, 88, 0.3);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--gold-primary);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            width: 44px;
+            height: 44px;
+            border-radius: 50%;
+            background: rgba(14, 17, 26, 0.9);
+            border: 1px solid var(--gold-primary);
+            color: var(--gold-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.6);
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s;
+            z-index: 99;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .back-to-top:hover {
+            background: var(--gold-primary);
+            color: #000;
+            transform: translateY(-3px);
+        }
+
+        /* Print Media */
+        @media print {
+            body {
+                background: #fff !important;
+                color: #000 !important;
+            }
+            .sidebar, .back-to-top, .sidebar-search {
+                display: none !important;
+            }
+            .main-content {
+                padding: 0 !important;
+                max-width: 100% !important;
+            }
+            .org-section, .hero-header {
+                background: #fff !important;
+                border: 1px solid #ccc !important;
+                box-shadow: none !important;
+                page-break-inside: avoid;
+            }
+            h1, h2, h3, h4, .section-title, .hero-title {
+                color: #000 !important;
+            }
+            .tab-content {
+                display: block !important;
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 1024px) {
+            .app-layout {
+                flex-direction: column;
+            }
+            .sidebar {
+                width: 100%;
+                height: auto;
+                position: relative;
+                border-right: none;
+                border-bottom: 1px solid var(--border-color);
+            }
+            .main-content {
+                padding: 1.5rem;
+            }
+            .logo-showcase-container {
+                grid-template-columns: 1fr;
+                text-align: center;
+            }
+            .logo-frame {
+                max-width: 260px;
+                margin: 0 auto;
+            }
+            .grid-2, .grid-3 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="app-layout">
+    <!-- Navigation Sidebar -->
+    <aside class="sidebar">
+        <div class="sidebar-brand">
+            <h2>Seita dos Corvos</h2>
+            <span>Sobrevivendo ao Horror</span>
+        </div>
+
+                <div style="margin: 1.25rem 0 0.5rem 0; padding: 0.75rem; background: rgba(207, 168, 88, 0.1); border: 1px solid var(--border-color); border-radius: var(--radius-sm); text-align: center;">
+            <a href="Formulario_Respondido_Seita_Corvos.html" style="color: var(--gold-primary); text-decoration: none; font-size: 0.85rem; font-weight: 600; display: flex; align-items: center; justify-content: center; gap: 0.5rem; transition: all 0.2s;">
+                <span>📋</span> Ver Formulário Respondido
+            </a>
+        </div>
+
+        <div class="sidebar-search">
+            <svg viewBox="0 0 24 24"><path d="M21.71 20.29l-5.4-5.39A8 8 0 1 0 4 10a8 8 0 0 0 12.31 6.31l5.4 5.4a1 1 0 0 0 1.41-1.42zM6 10a6 6 0 1 1 6 6 6 6 0 0 1-6-6z"/></svg>
+            <input type="text" id="searchInput" placeholder="Filtrar tópicos...">
+        </div>
+
+        <ul class="nav-list" id="navList">
+            <li class="nav-item active"><a href="#sec-nome"><span class="nav-num">01</span> Nome</a></li>
+            <li class="nav-item"><a href="#sec-descricao"><span class="nav-num">02</span> Descrição</a></li>
+            <li class="nav-item"><a href="#sec-complementares"><span class="nav-num">03</span> Informações Complementares</a></li>
+            <li class="nav-item"><a href="#sec-fundamentos"><span class="nav-num">04</span> Fundamentos</a></li>
+            <li class="nav-item"><a href="#sec-costumes"><span class="nav-num">05</span> Costumes</a></li>
+            <li class="nav-item"><a href="#sec-objetivos"><span class="nav-num">06</span> Objetivos</a></li>
+            <li class="nav-item"><a href="#sec-relacoes"><span class="nav-num">07</span> Relações</a></li>
+            <li class="nav-item"><a href="#sec-dinamica"><span class="nav-num">08</span> Dinâmica Interna</a></li>
+            <li class="nav-item"><a href="#sec-sede"><span class="nav-num">09</span> Sede (Lar Doce Lar)</a></li>
+            <li class="nav-item"><a href="#sec-itens"><span class="nav-num">10</span> Itens da Organização</a></li>
+            <li class="nav-item"><a href="#sec-membros"><span class="nav-num">11</span> Membros Notáveis</a></li>
+            <li class="nav-item"><a href="#sec-tornando-membro"><span class="nav-num">12</span> Se Tornando um Membro</a></li>
+        </ul>
+
+        <div style="margin-top: auto; padding-top: 1rem; border-top: 1px solid rgba(255,255,255,0.08); text-align: center;">
+            <button class="copy-btn" onclick="window.print()" style="width: 100%; justify-content: center; padding: 0.6rem;">
+                Imprimir / Salvar PDF
+            </button>
+        </div>
+    </aside>
+
+    <!-- Main Content Area -->
+    <main class="main-content">
+        <!-- Hero Header -->
+        <header class="hero-header">
+            <div class="hero-badge">Dossiê Confidencial — Suplemento de Organizações</div>
+            <h1 class="hero-title">Seita dos Corvos</h1>
+            <div class="hero-subtitle">Vigilantes do Limiar • Arquitetos do Véu</div>
+            <blockquote class="hero-quote">
+                "Há sombras que não nascem da luz, mas da pura ausência dela. Nós não caçamos o absurdo; nós o orquestramos.<br>
+                O Corvo observa. O Corvo julga. O Corvo age."
+                <br><span style="font-size: 0.85rem; color: var(--gold-primary);">— Arquivos Fragmentados do Ninho</span>
+            </blockquote>
+        </header>
+
+        <!-- 1. NOME -->
+        <section id="sec-nome" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">01</span>
+                    <h2 class="section-title">Nome</h2>
+                </div>
+                <span class="section-tag">Identidade Oficial</span>
+            </div>
+
+            <div class="info-card" style="margin-bottom: 1.5rem;">
+                <div class="card-label">Designação Operacional Principal</div>
+                <div class="card-value" style="font-size: 1.6rem; color: var(--gold-primary); font-family: 'Cinzel', serif;">A SEITA DOS CORVOS</div>
+                <p class="card-desc">
+                    Catalogada nos registros restritos da Ordo Realitas sob a designação <i>"Protocolo Corvino"</i> ou <i>"Arquitetos do Limiar"</i>. No submundo paranormal, conhecida simplesmente como <b>Os Corvos</b>, <b>O Ninho</b> ou <b>A Orquestra do Véu</b>.
+                </p>
+            </div>
+
+            <p>
+                O nome não deriva de idolatria cega à ave, mas sim do conceito dos corvos ancestrais nórdicos (<i>Huginn</i> e <i>Muninn</i> — Pensamento e Memória) aliados à biologia do Véu: criaturas capazes de transitar entre as camadas da realidade física e da escuridão do Outro Lado sem perturbar a harmonia cósmica.
+            </p>
+        </section>
+
+        <!-- 2. DESCRIÇÃO -->
+        <section id="sec-descricao" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">02</span>
+                    <h2 class="section-title">Descrição</h2>
+                </div>
+                <span class="section-tag">Gênese & História</span>
+            </div>
+
+            <p>
+                A <strong>Seita dos Corvos</strong> é uma força paramilitar clandestina que opera na fronteira limítrofe entre tecnologia de ponta, espiritualidade nórdica esotérica e engenharia interdimensional. Diferente de organizações que buscam erradicar o Outro Lado com fúria cega ou de cultos que almejam a dissolução da realidade pelo caos, a Seita opera sob uma diretriz estrita e inegociável: <strong>o equilíbrio absoluto entre planos</strong>.
+            </p>
+
+            <blockquote>
+                "Para a Seita, uma anomalia paranormal desenfreada e uma cruzada genocida contra as entidades são forças igualmente destrutivas. Ambas rasgam o Véu. Ambas condenam o mundo."
+            </blockquote>
+
+            <h3>Linha do Tempo Histórica</h3>
+            <div class="grid-cards">
+                <div class="info-card">
+                    <div class="card-label">Pré-História</div>
+                    <div class="card-value" style="font-size: 1rem; color: var(--gold-primary);">Xamanismo Primordial</div>
+                    <p class="card-desc">Xamãs-guerreiros nórdicos aprendem a suturar fendas naturais entre planos através de canções de garganta, runas e comunhão com os primeiros corvos espirituais.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Antiguidade</div>
+                    <div class="card-value" style="font-size: 1rem; color: var(--gold-primary);">Infiltração em Ordens</div>
+                    <p class="card-desc">Atuação silenciosa em templos, monastérios e bibliotecas antigas. Primeiros experimentos combinando carne humana e energias planares reguladas.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Idade Média</div>
+                    <div class="card-value" style="font-size: 1rem; color: var(--gold-primary);">Apagamento dos Registros</div>
+                    <p class="card-desc">A Seita apaga-se da história convencional, atuando como conselheiros invisíveis de alquimistas e reis. Construção do lendário <i>Espelho Negro</i>.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Guerras Mundiais</div>
+                    <div class="card-value" style="font-size: 1rem; color: var(--gold-primary);">Revolução Biomecânica</div>
+                    <p class="card-desc">Aceleração tecnológica forçada. Desenvolvimento dos primeiros exoesqueletos rituais, armamentos vivos e implantes com sangue estabilizado.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Era Contemporânea</div>
+                    <div class="card-value" style="font-size: 1rem; color: var(--gold-primary);">Globalização & IA ÆON</div>
+                    <p class="card-desc">Redes digitais encriptadas, sensores de satélite mágico e a consolidação do <i>Ninho</i> sob o solo norueguês, liderados pela mente lúcida de Crow.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 3. INFORMAÇÕES COMPLEMENTARES -->
+        <section id="sec-complementares" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">03</span>
+                    <h2 class="section-title">Informações Complementares</h2>
+                </div>
+                <span class="section-tag">Dossiê Estrutural</span>
+            </div>
+
+            <!-- Logo Showcase -->
+            <div class="logo-showcase-container">
+                <div class="logo-frame">
+                    <img src="seita_corvos_logo.jpg" alt="Brasão Oficial da Seita dos Corvos" onerror="this.onerror=null; this.src='https://placehold.co/400x400/0b0e14/cfa858?text=SEITA+DOS+CORVOS';">
+                </div>
+                <div class="logo-details">
+                    <h4>Emblema Heráldico — O Selo Rúnico Cibernético</h4>
+                    <p style="font-size: 0.95rem; margin-bottom: 1rem;">
+                        O brasão não é apenas uma insígnia de identificação militar, mas um <strong>dispositivo de contenção simbólica</strong> desenhado para estabilizar frequências e dissipar ressonâncias anômalas.
+                    </p>
+                    <ul class="heraldry-list">
+                        <li><strong>Estrutura Circular:</strong> Fundo em liga metálica escura com cuneiformes nórdicos em relevo na circunferência externa, funcionando como círculo de selamento.</li>
+                        <li><strong>O Corvo Central:</strong> Em perfil, com plumagem hiperdetalhada unindo anatomia biológica e conexões nervosas.</li>
+                        <li><strong>Visor Tático Duplo:</strong> Óculos de alta tecnologia com lentes luminescentes, simbolizando a capacidade de enxergar além do espectro humano.</li>
+                        <li><strong>Circuitos & Alvo Rúnico:</strong> Trilhas de circuitos eletrônicos integradas ao peito do corvo, culminando em uma mira concêntrica ritual.</li>
+                        <li><strong>Lâminas em "X":</strong> Uma katana de alta frequência com circuitos à esquerda e uma adaga ritual ancestral à direita, selando o juramento eterno de sigilo.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Complementary Information Grid -->
+            <div class="grid-cards">
+                <div class="info-card">
+                    <div class="card-label">Líder Supremo</div>
+                    <div class="card-value">Crow, o Arquiteto</div>
+                    <p class="card-desc">Ex-Viríssimo da Ordo Realitas. Mente fundida à matemática dimensional do Véu; corpo biologicamente estagnado nos 37 anos de idade.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Cores Oficiais</div>
+                    <div class="card-value" style="display: flex; gap: 0.5rem; align-items: center;">
+                        <span style="width: 14px; height: 14px; background: #08080a; border: 1px solid #555; border-radius: 50%;"></span> Ônix
+                        <span style="width: 14px; height: 14px; background: #cfa858; border-radius: 50%;"></span> Ouro
+                        <span style="width: 14px; height: 14px; background: #ff2a44; border-radius: 50%;"></span> Sangue
+                    </div>
+                    <p class="card-desc">Preto Ônix Profundo (Ocultação), Dourado Rúnico Antigo (Preservação/Conhecimento) e Vermelho Sangue Carmesim (Execução Cirúrgica).</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Designações Operacionais</div>
+                    <div class="card-value">Os Círculos da Seita</div>
+                    <p class="card-desc">
+                        • <b>Círculo de Ossos:</b> Combate e contenção.<br>
+                        • <b>Círculo da Frequência:</b> Acústica e rituais sonoros.<br>
+                        • <b>Círculo do Olho Fechado:</b> Inteligência e oráculos.<br>
+                        • <b>Círculo do Véu:</b> Cúpula estratégica.<br>
+                        • <b>Códices:</b> Tecnomancia e guerra digital.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Fundo Monetário</div>
+                    <div class="card-value">Ilimitado / Velado</div>
+                    <p class="card-desc">Financiamento contínuo através da administração do Museu Viking, patentes biomecânicas secretas, cripto-ativos geridos por Proxy e extração de minerais de fendas planares.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Relação Com o Paranormal</div>
+                    <div class="card-value" style="color: var(--cyan-veil);">Reguladora & Simbiótica</div>
+                    <p class="card-desc">Visão desprovida de dogma moral ou ódio religioso. O paranormal é um plano adjacente cuja física deve ser dominada, calculada e estabilizada cirurgicamente.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Sede Principal</div>
+                    <div class="card-value">O Ninho (The Nest)</div>
+                    <p class="card-desc">Complexo subterrâneo impenetrável sob o Museu Nacional de Arte Viking e Cultura Nórdica, situado no solo congelado de Oslo, Noruega.</p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Quantidade de Membros</div>
+                    <div class="card-value">300 a 500 Efetivos</div>
+                    <p class="card-desc">Conclave seletivo e altamente especializado mundialmente, além de centenas de corvos espirituais sentinelas e a IA arcano-digital ÆON.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 4. FUNDAMENTOS -->
+        <section id="sec-fundamentos" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">04</span>
+                    <h2 class="section-title">Fundamentos</h2>
+                </div>
+                <span class="section-tag">Pilares & Doutrina</span>
+            </div>
+
+            <h3>Os Três Pilares da Seita</h3>
+            <div class="grid-3">
+                <div class="info-card">
+                    <div class="card-label">Pilar 01</div>
+                    <div class="card-value" style="color: var(--gold-primary);">Eficiência Militar</div>
+                    <p class="card-desc">Agentes forjados nas mais severas técnicas de forças especiais, infiltração furtiva, tiro de precisão cirúrgico e combate com armaduras biomecânicas.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Pilar 02</div>
+                    <div class="card-value" style="color: var(--cyan-veil);">Tecnologia Avançada</div>
+                    <p class="card-desc">Exoesqueletos rituais, armamentos vivos de alta precisão, autômatos autônomos e a IA arcana ÆON analisando variações de frequência do Véu em tempo real.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Pilar 03</div>
+                    <div class="card-value" style="color: var(--crimson-accent);">Tradição Esotérica</div>
+                    <p class="card-desc">Runas nórdicas milenares, rituais acústicos e artefatos de ressonância utilizados como chaves matemáticas para selar rupturas e conter entidades.</p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2.5rem;">Os 6 Princípios Inegociáveis</h3>
+            <div class="grid-2">
+                <div class="info-card">
+                    <div class="card-label">Princípio I</div>
+                    <div class="card-value" style="font-size: 1rem;">Equilíbrio Acima de Ideologia</div>
+                    <p class="card-desc">A Seita não age pelo bem ou pelo mal, mas pela preservação do tecido da realidade a qualquer custo. Extremismos de qualquer natureza são neutralizados.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Princípio II</div>
+                    <div class="card-value" style="font-size: 1rem;">Invisibilidade Estratégica</div>
+                    <p class="card-desc">Agentes mantêm vidas civis reais e famílias. O anonimato em campo é absoluto: quando a missão termina, para o mundo humano nada aconteceu.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Princípio III</div>
+                    <div class="card-value" style="font-size: 1rem;">Fusão Consciente com o Véu</div>
+                    <p class="card-desc">O Outro Lado é estudado e internalizado. Agentes atravessam temporariamente a membrana do Véu mantendo foco, frieza e lucidez técnica.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Princípio IV</div>
+                    <div class="card-value" style="font-size: 1rem;">A Arte Preserva a Sanidade</div>
+                    <p class="card-desc">Música, escultura e poesia nórdica funcionam como estabilizadores cognitivos e emocionais. A beleza e a harmonia são a última trincheira contra a loucura.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Princípio V</div>
+                    <div class="card-value" style="font-size: 1rem;">O Corvo Observa, Julga e Age</div>
+                    <p class="card-desc">A Seita atua nas sombras sem buscar glória ou aplausos. Decisões cirúrgicas são tomadas com frieza calculada antes que o mundo perceba o perigo iminente.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Princípio VI</div>
+                    <div class="card-value" style="font-size: 1rem;">Humanidade Não É Fraqueza</div>
+                    <p class="card-desc">Composta por mentes brilhantes — pesquisadores, soldados, artífices e ocultistas. A humanidade de seus agentes é o que dá sentido real ao seu sacrifício.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 5. COSTUMES -->
+        <section id="sec-costumes" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">05</span>
+                    <h2 class="section-title">Costumes</h2>
+                </div>
+                <span class="section-tag">Tradição & Conduta</span>
+            </div>
+
+            <div class="grid-cards">
+                <div class="info-card">
+                    <div class="card-label">Tradição Operacional</div>
+                    <div class="card-value">O Silêncio Ritual</div>
+                    <p class="card-desc">
+                        A palavra falada possui massa e perturba as frequências vibracionais do Véu. Em missão, comunicações táticas são executadas via rádio-neural ou gestos codificados. Falar alto em campo é considerado imperícia grave.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Tecnologia Esotérica</div>
+                    <div class="card-value">A Música como Arma</div>
+                    <p class="card-desc">
+                        Toda a realidade é estruturada em vibrações. Agentes afinam instrumentos paranormais para distorcer a percepção de entidades, fechar fissuras e conceder sincronia de combate sem precedentes à equipe.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Procedimento Psíquico</div>
+                    <div class="card-value">O Retorno Vazio</div>
+                    <p class="card-desc">
+                        Após missões com alta exposição ao Outro Lado, os agentes passam por higienização mental assistida no Auditório do Silêncio para expurgar memórias parasitas e restaurar o equilíbrio da Sanidade.
+                    </p>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-label">Vínculo Espiritual</div>
+                    <div class="card-value">A Dança do Corvo</div>
+                    <p class="card-desc">
+                        Nenhum agente opera isolado. O corvo vinculado é tratado como parceiro e extensão da alma. Se a ave manifesta agitação ou recusa o voo, a missão é abortada imediatamente sem qualquer punição.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6. OBJETIVOS -->
+        <section id="sec-objetivos" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">06</span>
+                    <h2 class="section-title">Objetivos</h2>
+                </div>
+                <span class="section-tag">Diretrizes de Campo</span>
+            </div>
+
+            <p>
+                Cada operação da Seita dos Corvos enquadra-se rigorosamente em uma de suas seis diretrizes fundamentais de contenção e regulação existencial:
+            </p>
+
+            <div class="grid-cards">
+                <div class="info-card accent-crimson">
+                    <div class="card-label">Diretriz 01</div>
+                    <div class="card-value">Selamento Dimensional</div>
+                    <p class="card-desc">Contenção e sutura primária de fissuras no Véu através de combinações de acústica matemática, sangue rúnico e geometria sagrada.</p>
+                </div>
+                <div class="info-card accent-crimson">
+                    <div class="card-label">Diretriz 02</div>
+                    <div class="card-value">Extração de Artefatos</div>
+                    <p class="card-desc">Recuperação e quarentena de itens saturados por energia interplanar, transportados em cápsulas blindadas com ligas rúnicas.</p>
+                </div>
+                <div class="info-card accent-crimson">
+                    <div class="card-label">Diretriz 03</div>
+                    <div class="card-value">Sabotagem de Rituais</div>
+                    <p class="card-desc">Infiltração silenciosa em cultos extremistas para interrupção de cerimônias profanas e desmontagem simbólica de círculos ritualísticos.</p>
+                </div>
+                <div class="info-card accent-crimson">
+                    <div class="card-label">Diretriz 04</div>
+                    <div class="card-value">Dispersão de Entidades</div>
+                    <p class="card-desc">Neutralização cirúrgica de criaturas que ameaçam o tecido dimensional, reconduzindo sua consciência para o plano adjacente de origem.</p>
+                </div>
+                <div class="info-card accent-crimson">
+                    <div class="card-label">Diretriz 05</div>
+                    <div class="card-value">Limpeza de Sobreposições</div>
+                    <p class="card-desc">Recalibração do espaço-tempo em áreas afetadas por duplicatas, loops temporais ou memórias sem dono provocadas por falhas na membrana.</p>
+                </div>
+                <div class="info-card accent-crimson">
+                    <div class="card-label">Diretriz 06</div>
+                    <div class="card-value">Apagamento de Vestígios</div>
+                    <p class="card-desc">Dissolução absoluta de evidências com rituais de esquecimento e alteração sensorial. O mundo humano permanece em doce ignorância.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 7. RELAÇÕES -->
+        <section id="sec-relacoes" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">07</span>
+                    <h2 class="section-title">Relações</h2>
+                </div>
+                <span class="section-tag">Geopolítica Paranormal</span>
+            </div>
+
+            <h3>Organizações Oficiais</h3>
+            <div class="grid-2">
+                <div class="info-card">
+                    <div class="card-label">Ordem da Realitas</div>
+                    <div class="card-value" style="color: var(--cyan-veil);">Cooperação Velada & Fria</div>
+                    <p class="card-desc">
+                        A Seita enxerga a Ordo como útil, porém ingênua e excessivamente idealista. Fornece pistas criptografadas e intervém quando agentes da Ordo cometem erros catastróficos. Contudo, se um agente da Ordo torna-se uma ameaça ao Véu, a Seita o neutraliza silenciosamente.
+                        <br><b>Ponto de Contato:</b> Dai Verno (diplomata arcano).
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Os Leones</div>
+                    <div class="card-value" style="color: var(--gold-primary);">Neutralidade & Manipulação</div>
+                    <p class="card-desc">
+                        Para os Leones, a Seita é folclore; para a Seita, os Leones são peças previsíveis em um tabuleiro tático. A Seita monitora suas células à distância, guiando seus conflitos para que sirvam como distração de ameaças maiores.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Obscurité</div>
+                    <div class="card-value" style="color: #a855f7;">Guerra Fria & Desconfiança</div>
+                    <p class="card-desc">
+                        Ambas possuem profundo conhecimento oculto, mas objetivos antagônicos: o Obscurité busca o controle supremo; a Seita busca o equilíbrio irrestrito. Espionagem silenciosa e desaparecimentos mútuos marcam sua convivência tensa.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Hellhunters</div>
+                    <div class="card-value" style="color: var(--crimson-accent);">Hostilidade Silenciosa</div>
+                    <p class="card-desc">
+                        A Seita abomina a violência destrutiva e ruidosa dos Hellhunters, cujos confrontos estilhaçam as ressonâncias do Véu. O contato formal foi cortado após a Seita sabotar uma caçada desastrosa contra um Ente de Sangue.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">Facções Paranormais</h3>
+            <div class="grid-cards">
+                <div class="info-card">
+                    <div class="card-label">Seita das Máscaras</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Silêncio & Respeito Mútuo</div>
+                    <p class="card-desc">Ambas compreendem que desempenham lados opostos da mesma equação universal. Suas operações nunca colidem diretamente; observam-se à distância em absoluto silêncio cerimonial.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Produção do Anfitrião</div>
+                    <div class="card-value" style="font-size: 1.05rem; color: #f59e0b;">Neutralidade Hostil</div>
+                    <p class="card-desc">Considerados o caos personificado. A Seita ignora os jogos triviais, mas invade e implode arenas e estúdios quando as transmissões ameaçam provocar rupturas na membrana da realidade.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Luzidios</div>
+                    <div class="card-value" style="font-size: 1.05rem; color: #06b6d4;">Quarentena Dimensional</div>
+                    <p class="card-desc">Territórios proibidos e intocáveis. A Seita não negocia nem invade; mantém sentinelas em cordões de isolamento impedindo que civis desavisados entrem nessas cidades fantasma.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Transtornados & Cultos Profanos</div>
+                    <div class="card-value" style="font-size: 1.05rem; color: var(--crimson-accent);">Erradicação Total</div>
+                    <p class="card-desc">Cultistas suicidas que forçam o colapso do Véu sofrem expurgo absoluto. A Seita elimina seus membros, incinera seus registros e apaga qualquer evidência de sua existência.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 8. DINÂMICA INTERNA -->
+        <section id="sec-dinamica" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">08</span>
+                    <h2 class="section-title">Dinâmica Interna</h2>
+                </div>
+                <span class="section-tag">Hierarquia & Cooperação</span>
+            </div>
+
+            <h3>O Sistema Dual de Comando</h3>
+            <p>
+                Na Seita dos Corvos inexiste a vaidade ou disputas políticas internas. O funcionamento repousa sobre uma aliança perfeita entre duas estruturas complementares:
+            </p>
+            <div class="grid-2">
+                <div class="info-card">
+                    <div class="card-label">Estrutura 01</div>
+                    <div class="card-value" style="color: var(--crimson-accent);">O Comando Militar</div>
+                    <p class="card-desc">
+                        Determina quem avança, planeja as rotas de infiltração, puxa o gatilho e protege a retaguarda. Condicionamento físico e psicológico de nível máximo, disciplina absoluta e cumprimento estrito de ordens sem hesitação.
+                    </p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Estrutura 02</div>
+                    <div class="card-value" style="color: var(--gold-primary);">O Comando Ritualístico</div>
+                    <p class="card-desc">
+                        Determina quem enxerga através da névoa, quem manipula as frequências acústicas e quem toca a substância do Véu sem enlouquecer. Conduz os rituais de selamento e calibra os artefatos de ressonância.
+                    </p>
+                </div>
+            </div>
+
+            <h3 style="margin-top: 2rem;">A Tríade Operacional</h3>
+            <blockquote style="margin: 1.5rem 0;">
+                "Nenhuma missão depende de um só olhar. Quando a Presença vacila, a Mente sustenta. Quando a Mente é ferida, a Escuta guia a retirada."
+            </blockquote>
+            <div class="grid-3">
+                <div class="info-card">
+                    <div class="card-label">Função I</div>
+                    <div class="card-value">Presença</div>
+                    <p class="card-desc">Resistência física, combate de choque com armaduras biomecânicas e barreira viva de proteção aos ritualistas (Círculo de Ossos).</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Função II</div>
+                    <div class="card-value">Mente</div>
+                    <p class="card-desc">Interpretação simbólica de padrões do Outro Lado, regência acústica, ativação de runas e selamento de anomalias (Círculo da Frequência).</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Função III</div>
+                    <div class="card-value">Escuta</div>
+                    <p class="card-desc">Percepção ampliada, detecção de microfissuras dimensionais e comunicação psíquica através dos corvos sentinelas (Círculo do Olho Fechado).</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 9. SEDE (LAR DOCE LAR) -->
+        <section id="sec-sede" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">09</span>
+                    <h2 class="section-title">Sede & Lar Doce Lar</h2>
+                </div>
+                <span class="section-tag">Base de Operações</span>
+            </div>
+
+            <div class="info-card" style="margin-bottom: 2rem;">
+                <div class="card-label">Fortaleza Subterrânea</div>
+                <div class="card-value" style="font-size: 1.5rem; color: var(--gold-primary);">O NINHO (THE NEST)</div>
+                <p class="card-desc">
+                    Sob o permafrost da Noruega, disfarçado sob a fachada pública do <strong>Museu Nacional de Arte Viking e Cultura Nórdica</strong>, estende-se o complexo militar-arcano da Seita. Câmaras escavadas em 1930 revelaram blocos rúnicos milenares com geometria móvel. A Seita expandiu o local transformando-o em um colosso subterrâneo de laboratórios biomecânicos, oficinas de arte esotérica e o monumental <i>Auditório do Silêncio</i> — uma sala onde qualquer som físico é absorvido pelas paredes rúnicas, permitindo comunicação telepática pura.
+                </p>
+                <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-muted);">
+                    <b>Defesas Autônomas:</b> Explosivos convencionais falham sem explicação nas proximidades; satélites sofrem distorção de sinal; e invasores não autorizados são encontrados vagando na neve a quilômetros de distância, com amnésia retrógrada induzida pelas frequências da base.
+                </div>
+            </div>
+
+            <!-- Regra Oficial Lar Doce Lar -->
+            <div class="stat-block">
+                <div class="stat-header">
+                    <h3 class="stat-title">LAR DOCE LAR: O NINHO DOS CORVOS</h3>
+                    <div class="stat-meta">
+                        <span class="badge badge-gold">Poder de Base de Operações</span>
+                    </div>
+                </div>
+                <p style="margin-bottom: 1.25rem;">
+                    Agentes que utilizam o <i>Ninho</i> como base durante cenas de Interlúdio usufruem de duas vantagens permanentes concedidas pela estrutura singular da fortaleza:
+                </p>
+
+                <div class="ability-box">
+                    <div class="ability-header">
+                        <span class="ability-name">A. Acomodação & Higienização do Silêncio (Auditório do Silêncio)</span>
+                        <span class="ability-cost">Benefício Passivo de Repouso</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin: 0;">
+                        Durante um Interlúdio realizado no Ninho, ao realizar a ação <i>Descansar</i> ou <i>Relaxar</i>, os membros da Seita recuperam o <strong>dobro dos Pontos de Sanidade</strong> normais. Além disso, uma vez por interlúdio, um agente pode submeter-se ao ritual do <i>Retorno Vazio</i> no Auditório do Silêncio, removendo imediatamente uma Perturbação Mental Temporária ou um efeito prolongado de trauma sem custo em recursos.
+                    </p>
+                </div>
+
+                <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                    <div class="ability-header">
+                        <span class="ability-name">E. Estrutura Tecnológica & Biblioteca da IA ÆON</span>
+                        <span class="ability-cost">Benefício Passivo de Equipamento & Pesquisa</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin: 0;">
+                        Os agentes têm acesso às oficinas biomecânicas do artífice Raed e aos bancos de dados de cálculo dimensional da IA ÆON. Ao realizar a ação <i>Planejar Missão</i> na sede, todos os agentes recebem <strong>+2d em testes de Ocultismo, Tecnologia ou Investigação</strong> durante a primeira cena da missão seguinte. Além disso, cada membro da Seita pode requisitar <strong>+1 item amaldiçoado ou modificação de exoesqueleto</strong> sem aumentar sua penalidade de Prestígio ou limite de Categoria.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 10. ITENS DA ORGANIZAÇÃO -->
+        <section id="sec-itens" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">10</span>
+                    <h2 class="section-title">Itens da Organização</h2>
+                </div>
+                <span class="section-tag">Arsenal do Véu</span>
+            </div>
+
+            <!-- Artefato Único: Braço de Sangue -->
+            <div class="stat-block">
+                <div class="stat-header">
+                    <h3 class="stat-title">BRAÇO DE SANGUE MODIFICADO</h3>
+                    <div class="stat-meta">
+                        <span class="badge badge-crimson">Artefato Único • Categoria IV</span>
+                        <span class="badge badge-gold">Espaço 2</span>
+                    </div>
+                </div>
+                <blockquote>
+                    "Ele pulsa como um coração que nunca descansou. Cada gota que você derrama o alimenta — e ele sempre tem fome."
+                </blockquote>
+                <p style="font-size: 0.92rem;">
+                    <b>Tipo:</b> Implante Biomecânico Arcano desenvolvido por Raed com tecnologia recuperada da Segunda Guerra Mundial e tecidos vivos saturados pelo Outro Lado.
+                </p>
+
+                <h4 style="margin-top: 1rem; color: var(--gold-primary);">Propriedades Passivas</h4>
+                <ul style="padding-left: 1.5rem; margin-bottom: 1rem; font-size: 0.9rem;">
+                    <li><b>Golpe Brutal:</b> +1d8 de dano de Sangue em ataques corpo a corpo.</li>
+                    <li><b>Rasgar a Carne:</b> Seus ataques corpo a corpo ignoram RD 5 de Sangue de criaturas.</li>
+                    <li><b>Cicatrização Sombria:</b> O braço regenera 2d4 PV por rodada fora de combate.</li>
+                    <li><b>Ancoragem Amaldiçoada:</b> Imunidade à condição <i>Desarmado</i> (o braço é fundido à carne e aos ossos).</li>
+                    <li><b>Força Motriz:</b> Como Ação Livre, você pode optar por usar seu valor de Força no lugar de Agilidade para calcular sua Defesa.</li>
+                </ul>
+
+                <div class="ability-box">
+                    <div class="ability-header">
+                        <span class="ability-name">Habilidade Ativa: Raiva do Corrompido</span>
+                        <span class="ability-cost">2 PE + 1d4 Sanidade Temporária • 1x por missão (Duração: 3 rodadas)</span>
+                    </div>
+                    <p style="font-size: 0.9rem; margin-bottom: 0.5rem;">
+                        Durante a ativação, você ganha <strong>+2 em testes de Força</strong>, <strong>+1 ataque corpo a corpo adicional por rodada</strong>, <strong>+1d8 de dano de Sangue extra</strong> e imunidade a efeitos mentais e de dor.
+                    </p>
+                    <p style="font-size: 0.85rem; color: var(--crimson-accent); margin: 0;">
+                        <b>Limitação (Fúria Cega):</b> Você sofre -2 na Defesa e só pode atacar o alvo mais próximo; se não houver inimigos, deve atacar aliados adjacentes. Ao fim, role 1d6 e subtraia de todos os seus testes físicos até um descanso curto.
+                    </p>
+                </div>
+            </div>
+
+            <!-- Batuta e Exoesqueleto -->
+            <div class="grid-2">
+                <div class="stat-block" style="margin-top: 0;">
+                    <div class="stat-header">
+                        <h4 class="stat-title" style="font-size: 1.15rem;">BATUTA RITUAL DO MAESTRO</h4>
+                        <span class="badge badge-gold">Categoria I • Espaço 1</span>
+                    </div>
+                    <p style="font-size: 0.9rem;">
+                        Foco sinfônico em ébano e filamentos de prata do Véu. Permite conjurar rituais mantendo as mãos livres para regência. Em <strong>NEX 50%</strong>, desperta a afinidade elemental escolhida pelo portador:
+                    </p>
+                    <ul style="padding-left: 1.25rem; font-size: 0.88rem;">
+                        <li>+1d em Ocultismo para rituais do mesmo elemento.</li>
+                        <li>Reduz em -1 PE (mínimo 1) o custo das habilidades da Trilha Maestro.</li>
+                        <li>Resistência elemental descritiva a dano do mesmo tipo.</li>
+                    </ul>
+                </div>
+
+                <div class="stat-block" style="margin-top: 0;">
+                    <div class="stat-header">
+                        <h4 class="stat-title" style="font-size: 1.15rem;">EXOESQUELETO RÚNICO DE ASSALTO</h4>
+                        <span class="badge badge-cyan">Categoria II • Proteção Pesada</span>
+                    </div>
+                    <p style="font-size: 0.9rem;">
+                        Armadura militar biomecânica com pistões hidráulicos e selos do Outro Lado em metal frio.
+                    </p>
+                    <ul style="padding-left: 1.25rem; font-size: 0.88rem;">
+                        <li>Defesa +5, Penalidade de Carga -2 (anulada em NEX 65%).</li>
+                        <li><strong>Sem redução de deslocamento:</strong> seus servomotores rúnicos compensam o peso integral do metal.</li>
+                        <li>Garante RD 2 passiva contra corte, impacto e perfuração.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Instrumentos da Orquestra Negra -->
+            <h3 style="margin-top: 2rem;">Os Instrumentos Paranormais da Orquestra Negra</h3>
+            <p>
+                Instrumentos amaldiçoados forjados com ossos interdimensionais, tendões rúnicos e ligas do Véu. Qualquer ocultista pode utilizá-los, porém apenas os <strong>Maestros do Medo</strong> conseguem atingir 100% de seu potencial harmônico:
+            </p>
+
+            <div class="grid-cards">
+                <div class="info-card">
+                    <div class="card-label">Morte • Categoria II (1 Mão)</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Flauta das Almas Perdidas</div>
+                    <p class="card-desc">Esculpida em osso de criatura do Outro Lado. Silencia mortos inquietos, revela rastros de almas invisíveis e expulsa espíritos possessores.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Energia • Categoria II (1 Mão)</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Baquetas do Vazio</div>
+                    <p class="card-desc">Metal de meteorito extradimensional. Golpes no ar liberam ondas de choque direcionais que repelem inimigos e quebram escudos de força.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Conhecimento • Categoria II (2 Mãos)</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Hangdrum Ressonante</div>
+                    <p class="card-desc">Tambor metálico afinado em frequência áurea. Cada toque revela fraquezas estruturais, dissolve ilusões e expõe passagens secretas.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Morte • Categoria II (2 Mãos)</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Lira Nórdica Sombria</div>
+                    <p class="card-desc">Cordas feitas com tendões de seres do limiar. Mantém aliados morrendo vivos além do limite e estabiliza colapsos biológicos imediatos.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Sangue • Categoria II (2 Mãos)</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Violino Ácido</div>
+                    <p class="card-desc">Ressonância pungente que rasga a determinação do adversário, quebra foco de conjuração e dissolve memórias parasitárias.</p>
+                </div>
+                <div class="info-card">
+                    <div class="card-label">Energia + Morte • Categoria III (2 Mãos)</div>
+                    <div class="card-value" style="font-size: 1.05rem;">Violoncelo Abissal</div>
+                    <p class="card-desc">Acordes graves que curvam a gravidade local e entortam projéteis balísticos disparados contra o músico.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 11. MEMBROS NOTÁVEIS -->
+        <section id="sec-membros" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">11</span>
+                    <h2 class="section-title">Membros Notáveis</h2>
+                </div>
+                <span class="section-tag">Dossiês & Fichas de Aliados</span>
+            </div>
+
+            <!-- Tab Navigation for Notable Members -->
+            <div class="tabs-nav">
+                <button class="tab-btn active" onclick="switchTab(event, 'tab-crow')">Agente 1: Crow</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-lobo')">Agente 2: Lobo</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-theeye')">Agente 3: The Eye</button>
+                <button class="tab-btn" onclick="switchTab(event, 'tab-auxiliares')">Painel Auxiliar</button>
+            </div>
+
+            <!-- AGENTE 1: CROW -->
+            <div id="tab-crow" class="tab-content active">
+                <div class="grid-2" style="align-items: start;">
+                    <div>
+                        <h3 style="color: var(--gold-primary); margin-top: 0;">CROW, O ARQUITETO DAS SOMBRAS</h3>
+                        <div class="card-label">Líder Supremo da Seita dos Corvos • Ex-Viríssimo da Ordo Realitas</div>
+                        <p>
+                            Crow representa o ápice da fusão entre metodologia científica e compreensão cósmica do Véu. No passado, serviu na elite da Ordo Realitas criando câmaras de contenção e protocolos interdimensionais. Sua busca pela fórmula exata da realidade o conduziu a um experimento secreto de fusão consciente com o Véu.
+                        </p>
+                        <p>
+                            Após dez anos desaparecido no Outro Lado, Crow retornou com idade biológica congelada aos 37 anos, lúcido e com uma mente friamente transcendida: <strong>a realidade curva-se discretamente ao seu redor</strong>. Rejeitado pelo comando da Ordo por suas teorias proibidas, assumiu a liderança da Seita ao selar sozinho uma quebra colossal na Escandinávia.
+                        </p>
+                        <blockquote>
+                            "O mundo não é uma guerra entre a luz e a escuridão. É uma máquina de engrenagens cósmicas. Se uma trava quebra, você não chora: você a substitui."
+                        </blockquote>
+                    </div>
+
+                    <!-- Ficha de Aliado: Crow -->
+                    <div class="stat-block" style="margin-top: 0;">
+                        <div class="stat-header">
+                            <h4 class="stat-title" style="font-size: 1.15rem;">CROW COMO ALIADO</h4>
+                            <span class="badge badge-gold">Aliado Mestre • Nível 4</span>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <span class="stat-item-label">Função</span>
+                                <span class="stat-item-val" style="font-size: 0.9rem;">Mestre Cósmico</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Bônus Passivo</span>
+                                <span class="stat-item-val">+5 Ocultismo / Vontade</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Aura</span>
+                                <span class="stat-item-val" style="font-size: 0.9rem;">-1 PE Rituais</span>
+                            </div>
+                        </div>
+
+                        <div class="ability-box">
+                            <div class="ability-header">
+                                <span class="ability-name">Hab 1: Fissura Estabilizada</span>
+                                <span class="ability-cost">Reação • 1x por cena</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin: 0;">
+                                Quando um ataque ou evento for causar a morte ou colapso irreversível de um aliado, Crow intervém alterando a física do momento: anula 100% do dano do ataque ou fecha uma fenda dimensional instantaneamente. <i>(Custo narrativo: um dos agentes perde permanentemente uma memória preciosa para equilibrar a troca).</i>
+                            </p>
+                        </div>
+
+                        <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                            <div class="ability-header">
+                                <span class="ability-name">Hab 2: Regra do Tabuleiro</span>
+                                <span class="ability-cost">Ação Padrão • 1x por combate</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin: 0;">
+                                Crow impõe as condições <strong>Lento</strong> e <strong>Pasmo</strong> a todas as criaturas e ameaças em alcance médio por 1 rodada inteira sem direito a teste de resistência, reescrevendo a ordem de iniciativa da cena.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AGENTE 2: LOBO -->
+            <div id="tab-lobo" class="tab-content">
+                <div class="grid-2" style="align-items: start;">
+                    <div>
+                        <h3 style="color: var(--crimson-accent); margin-top: 0;">LOBO – O EXECUTOR SILENCIOSO</h3>
+                        <div class="card-label">Círculo de Ossos • Braço Armado do Ninho</div>
+                        <p>
+                            Lobo já foi um atirador ocultista prodígio da Ordo Realitas. Durante uma missão classificada, teve contato direto com a <strong>Relíquia de Conhecimento</strong>, que estilhaçou sua identidade com memórias de séculos de vidas alheias. Capturado pela Seita das Máscaras, esteve prestes a ter sua alma dissolvida, até que foi arrancado pelo poder da <strong>Relíquia de Sangue</strong> em um ritual brutal.
+                        </p>
+                        <p>
+                            Marcado por duas forças opostas que se anulam em seu peito, Lobo é um sobrevivente sem destino definido. Acolhido por Crow, tornou-se o carrasco supremo da Seita: quieto, letal, agindo como um <i>glitch</i> espacial que materializa o julgamento antes que a ameaça perceba sua aproximação.
+                        </p>
+                    </div>
+
+                    <!-- Ficha de Aliado: Lobo -->
+                    <div class="stat-block" style="margin-top: 0; border-color: var(--crimson-accent);">
+                        <div class="stat-header">
+                            <h4 class="stat-title" style="font-size: 1.15rem; color: var(--crimson-accent);">LOBO COMO ALIADO</h4>
+                            <span class="badge badge-crimson">Aliado Algoz • Nível 4</span>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <span class="stat-item-label">Função</span>
+                                <span class="stat-item-val" style="font-size: 0.9rem;">Algoz Letal</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Bônus Passivo</span>
+                                <span class="stat-item-val">+2 Margem / +5 Pontaria</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Furtividade</span>
+                                <span class="stat-item-val">+5 Perícia</span>
+                            </div>
+                        </div>
+
+                        <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                            <div class="ability-header">
+                                <span class="ability-name">Hab 1: Glitch do Executor</span>
+                                <span class="ability-cost">Ação Livre • 1x por cena</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin: 0;">
+                                Lobo surge das sombras adjacente a uma criatura ameaçadora e desfere um disparo à queima-roupa com seu fuzil ritual: causa <strong>8d10 de dano de Sangue e Balístico</strong> ignorando qualquer Redução de Dano (RD) física do alvo.
+                            </p>
+                        </div>
+
+                        <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                            <div class="ability-header">
+                                <span class="ability-name">Hab 2: Premunição do Sangue</span>
+                                <span class="ability-cost">Reação</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin: 0;">
+                                Quando um aliado for alvo de um ataque que o deixaria em estado Morrendo, Lobo intercepta o golpe disparando contra o membro agressor do inimigo, anulando o ataque e deixando a criatura <strong>Desarmada</strong> e <strong>Vulnerável</strong> até o próximo turno dela.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- AGENTE 3: THE EYE -->
+            <div id="tab-theeye" class="tab-content">
+                <div class="grid-2" style="align-items: start;">
+                    <div>
+                        <h3 style="color: var(--cyan-veil); margin-top: 0;">THE EYE – O ESTRATEGISTA</h3>
+                        <div class="card-label">Círculo da Frequência • Maestro Tático</div>
+                        <p>
+                            Antigo general e tático militar obcecado por controle absoluto. Para contornar a morte e servir indefinidamente, realizou 17 transferências de consciência sucessivas entre corpos hospedeiros. Na 18ª transferência, uma falha catastrófica em um ritual de estabilização o deixou aprisionado em um corpo cego e instável.
+                        </p>
+                        <p>
+                            Resgatado pela Seita, Crow o ensinou a enxergar o mundo pela <strong>ressonância acústica do Véu</strong>. Hoje, The Eye comanda operações inteiras sem enxergar com os olhos biológicos: aliados são notas harmônicas, inimigos são ruídos e as batalhas são sinfonias mortais rigorosamente coreografadas.
+                        </p>
+                    </div>
+
+                    <!-- Ficha de Aliado: The Eye -->
+                    <div class="stat-block" style="margin-top: 0; border-color: var(--cyan-veil);">
+                        <div class="stat-header">
+                            <h4 class="stat-title" style="font-size: 1.15rem; color: var(--cyan-veil);">THE EYE COMO ALIADO</h4>
+                            <span class="badge badge-cyan">Aliado Estrategista • Nível 4</span>
+                        </div>
+                        <div class="stat-grid">
+                            <div class="stat-item">
+                                <span class="stat-item-label">Função</span>
+                                <span class="stat-item-val" style="font-size: 0.9rem;">Maestro Tático</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Bônus Passivo</span>
+                                <span class="stat-item-val">+5 Tática / +2 Defesa</span>
+                            </div>
+                            <div class="stat-item">
+                                <span class="stat-item-label">Iniciativa</span>
+                                <span class="stat-item-val">+1d no Grupo</span>
+                            </div>
+                        </div>
+
+                        <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                            <div class="ability-header">
+                                <span class="ability-name">Hab 1: Sinfonia Tática</span>
+                                <span class="ability-cost">Reação • Início da Rodada</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin: 0;">
+                                The Eye antecipa a cadência do combate: permite que até dois aliados realizem uma <strong>Ação de Movimento imediata e gratuita</strong> para reposicionamento sem provocar ataques de oportunidade.
+                            </p>
+                        </div>
+
+                        <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                            <div class="ability-header">
+                                <span class="ability-name">Hab 2: Ruído Neutralizador</span>
+                                <span class="ability-cost">Ação Padrão • 1x por cena</span>
+                            </div>
+                            <p style="font-size: 0.88rem; margin: 0;">
+                                Emite uma contrafrequência através dos comunicadores de campo que <strong>cancela a Presença Perturbadora</strong> de todas as criaturas na cena por 2 rodadas e interrompe instantaneamente a conjuração de qualquer ritual inimigo em andamento.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PAINEL AUXILIAR -->
+            <div id="tab-auxiliares" class="tab-content">
+                <div class="grid-cards">
+                    <div class="info-card">
+                        <div class="card-label">Códices & Guerra Digital</div>
+                        <div class="card-value" style="font-size: 1.1rem;">Proxy – O Tecnomante</div>
+                        <p class="card-desc">O fantasma digital do Ninho. Comunica-se em vozes sintetizadas em camadas, sabota satélites, corrompe transmissões de cultos e garante o anonimato absoluto da Seita apagando rastros mundiais em segundos.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-label">Círculo do Olho Fechado</div>
+                        <div class="card-value" style="font-size: 1.1rem;">Nadine – A Despertadora</div>
+                        <p class="card-desc">Oráculo amaldiçoada. Ao adentrar qualquer ambiente, segredos e mistérios são expostos; porém, cada revelação apaga dias de suas próprias memórias pessoais, deixando-a com olhar distante e eterno pesar.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-label">Contenção Dimensional</div>
+                        <div class="card-value" style="font-size: 1.1rem;">Maike – O Carrasco do Tempo</div>
+                        <p class="card-desc">Existe na falha entre os segundos. Capaz de congelar frações de tempo para desarmar armadilhas apocalípticas, mas paga um pedágio brutal: seu corpo físico envelhece em espasmos rápidos a cada salto.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-label">Oficinas Biomecânicas</div>
+                        <div class="card-value" style="font-size: 1.1rem;">Raed – O Engenheiro Cirúrgico</div>
+                        <p class="card-desc">Artífice e cirurgião cibernético com próteses rituais em metade do corpo. Criador dos exoesqueletos, dos autômatos do Véu e do Braço de Sangue. Encara a dor corporal como uma engrenagem de sobrevivência.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-label">Diplomacia Oculta</div>
+                        <div class="card-value" style="font-size: 1.1rem;">Dai Verno – O Embaixador</div>
+                        <p class="card-desc">Ex-mágico de palco carismático. O único diplomata com autorização para sentar à mesa com a Ordo, Leones e Obscurité, costurando alianças improváveis com um baralho na mão e palavras precisas.</p>
+                    </div>
+                    <div class="info-card">
+                        <div class="card-label">Atirador Prodígio</div>
+                        <div class="card-value" style="font-size: 1.1rem;">Denis Bones – O Gatilho</div>
+                        <p class="card-desc">Apenas 17 anos de idade. Seus disparos não seguem a balística comum: o garoto parece puxar o gatilho orientado pelo próprio Véu, acertando alvos atrás de coberturas intransponíveis.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 12. SE TORNANDO UM MEMBRO -->
+        <section id="sec-tornando-membro" class="org-section">
+            <div class="section-header">
+                <div class="section-title-wrap">
+                    <span class="section-number">12</span>
+                    <h2 class="section-title">Se Tornando um Membro</h2>
+                </div>
+                <span class="section-tag">Mecânicas & Progressão</span>
+            </div>
+
+            <p>
+                A Seita dos Corvos não realiza processos seletivos públicos nem aceita inscrições voluntárias vulgares. <strong>O Ninho escolhe seus membros</strong>. Quando um indivíduo demonstra sensibilidade nata para escutar as vibrações do Véu, ele é observado por semanas pelos corvos sentinelas. Se julgado digno, recebe um convite presencial. Um convite que jamais é recusado.
+            </p>
+
+            <!-- Subtabs for Becoming a Member -->
+            <div class="tabs-nav" style="margin-top: 2rem;">
+                <button class="tab-btn active" onclick="switchTab(event, 'subtab-vinculo')">Vínculo Corvino</button>
+                <button class="tab-btn" onclick="switchTab(event, 'subtab-trilha1')">Trilha 1: Maestro</button>
+                <button class="tab-btn" onclick="switchTab(event, 'subtab-trilha2')">Trilha 2: Colosso</button>
+                <button class="tab-btn" onclick="switchTab(event, 'subtab-trilha3')">Trilha 3: Engenheiro</button>
+                <button class="tab-btn" onclick="switchTab(event, 'subtab-origem')">Origem: Marcado</button>
+            </div>
+
+            <!-- VÍNCULO CORVINO -->
+            <div id="subtab-vinculo" class="tab-content active">
+                <div class="stat-block">
+                    <div class="stat-header">
+                        <h3 class="stat-title">MECÂNICA ÚNICA: O VÍNCULO CORVINO</h3>
+                        <span class="badge badge-gold">Ritual Proibido • Simbiose com o Véu</span>
+                    </div>
+                    <p style="font-size: 0.95rem;">
+                        Ao se tornar um agente efetivo, você passa pelo <strong>Ritual do Vínculo</strong>, onde sua consciência é parcialmente conectada a um Corvo espiritual do Outro Lado. A ave não é um animal de estimação ou mascote; ela é um <strong>filtro de sanidade e uma sentinela do limiar</strong>.
+                    </p>
+
+                    <div class="grid-cards" style="margin: 1.5rem 0;">
+                        <div class="info-card">
+                            <div class="card-label">Arquétipo 1</div>
+                            <div class="card-value" style="font-size: 1.05rem;">Corvo-Sombra</div>
+                            <p class="card-desc"><b>Bônus:</b> +5 em Furtividade e Camuflagem Paranormal.<br><b>Contrapartida:</b> Presença social reduzida (difícil de ser lembrado por pessoas comuns).</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-label">Arquétipo 2</div>
+                            <div class="card-value" style="font-size: 1.05rem;">Corvo-Vigia</div>
+                            <p class="card-desc"><b>Bônus:</b> +5 em Percepção e Visão no Escuro Paranormal.<br><b>Contrapartida:</b> Sono inquieto; recebe flashes de pesadelos do Outro Lado.</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-label">Arquétipo 3</div>
+                            <div class="card-value" style="font-size: 1.05rem;">Corvo-Forja</div>
+                            <p class="card-desc"><b>Bônus:</b> +2 em Fortitude e +5 PV Máximos.<br><b>Contrapartida:</b> -2 em iniciativas rápidas e reflexos instintivos.</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-label">Arquétipo 4</div>
+                            <div class="card-value" style="font-size: 1.05rem;">Corvo-Rito</div>
+                            <p class="card-desc"><b>Bônus:</b> +1d em testes de Ocultismo para rituais.<br><b>Contrapartida:</b> Emite pequenos estalos rúnicos involuntários em momentos de tensão.</p>
+                        </div>
+                        <div class="info-card">
+                            <div class="card-label">Arquétipo 5</div>
+                            <div class="card-value" style="font-size: 1.05rem;">Corvo-Lâmina</div>
+                            <p class="card-desc"><b>Bônus:</b> +2 na Margem de Ameaça contra alvos marcados.<br><b>Contrapartida:</b> A ave fica impaciente e bica o agente em cenas de inação.</p>
+                        </div>
+                    </div>
+
+                    <h4 style="color: var(--gold-primary);">Habilidades Especiais do Vínculo</h4>
+                    <div class="ability-box">
+                        <div class="ability-header">
+                            <span class="ability-name">Grasnido de Alerta</span>
+                            <span class="ability-cost">1x por cena</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0;">
+                            Avisa sobre ameaças invisíveis ou emboscadas iminentes. Você e todos os aliados em alcance curto <strong>ignoram as condições Desprevenido e Surpreendido</strong> na primeira rodada do combate.
+                        </p>
+                    </div>
+
+                    <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                        <div class="ability-header">
+                            <span class="ability-name">Filtro de Pavor</span>
+                            <span class="ability-cost">Reação • 2 PE</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0;">
+                            Quando você ou um aliado adjacente for sofrer Dano Mental ou dano de Sanidade, você pode canalizar o golpe para o seu Corvo, absorvendo até <strong>100% desse dano mental</strong> nos PVs espirituais da ave.
+                        </p>
+                    </div>
+
+                    <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                        <div class="ability-header">
+                            <span class="ability-name">Sussurro do Véu</span>
+                            <span class="ability-cost">1x por missão</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0;">
+                            Permite realizar uma pergunta direta ao Mestre sobre o equilíbrio dimensional de um cenário, pista ou fraqueza de uma criatura, recebendo uma visão clarividente precisa.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+                        <!-- TRILHA 1: MAESTRO DO MEDO -->
+            <div id="subtab-trilha1" class="tab-content">
+                <div class="stat-block">
+                    <div class="stat-header">
+                        <h3 class="stat-title">TRILHA OCULTISTA: MAESTRO DO MEDO E DA REDENÇÃO</h3>
+                        <span class="badge badge-gold">Suporte Tático, Buffs &amp; Controle Acústico</span>
+                    </div>
+                    <blockquote style="margin: 0 0 1.25rem 0; font-size: 0.92rem; border-left-color: var(--gold-primary);">
+                        "O som é sua arma. O Véu é sua plateia. A realidade... sua partitura."
+                    </blockquote>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.25rem;">
+                        O Maestro do Medo canaliza as frequências primordiais do Véu. Onde outros veem terror incontrolável, o Maestro escuta notas e cadências harmônicas. Ele rege o campo de batalha convertendo o pânico em impulso para seus aliados ou destroçando a mente dos inimigos através de ressonâncias sonoras arcanas.
+                    </p>
+
+                    <!-- AFINIDADE ELEMENTAL ESPECIAL -->
+                    <div style="background: rgba(207, 168, 88, 0.08); border: 1px solid var(--border-color); border-radius: var(--radius-sm); padding: 1rem; margin-bottom: 1.25rem;">
+                        <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.35rem;">
+                            <strong style="color: var(--gold-primary); font-family: 'Cinzel', serif; font-size: 0.95rem;">🎵 Afinidade Elemental Especial (NEX 50%)</strong>
+                            <span class="ability-cost">Despertar da Batuta</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0; color: var(--text-body);">
+                            Ao atingir <strong>NEX 50%</strong> e adquirir Afinidade com um Elemento, sua <strong>Batuta Ritualística</strong> (Item de Categoria I, Espaço 1) desperta. Quando empunhada, você recebe <strong>+1d em testes de Ocultismo</strong> para rituais do mesmo elemento e reduz em <strong>-1 PE</strong> (mínimo de 1 PE) o custo de ativação de todos os poderes desta Trilha e de sua Subtrilha.
+                        </p>
+                    </div>
+
+                    <!-- NEX 10% (BASE COMUM) -->
+                    <div class="ability-box" style="border-left-color: var(--gold-primary); background: rgba(207, 168, 88, 0.04); margin-bottom: 1.5rem;">
+                        <div class="ability-header">
+                            <span class="ability-name">NEX 10% — Primeiras Notas do Abismo (O Alicerce da Regência)</span>
+                            <span class="ability-cost">2 PE • Ação Padrão</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0;">
+                            Você converte o medo em cadência tática. Um aliado em alcance curto recebe uma <strong>Ação de Movimento adicional</strong> no próximo turno dele (essencial para reposicionamentos ou fugas táticas). Alternativamente, você pode conceder a todos os aliados em alcance curto um bônus igual ao seu <strong>Intelecto</strong> em testes de resistência contra efeitos de <i>Medo</i> até o final da cena.
+                        </p>
+                    </div>
+
+                    <!-- BANNER DA BIFURCAÇÃO EM NEX 40% -->
+                    <div style="background: linear-gradient(135deg, rgba(207, 168, 88, 0.15) 0%, rgba(255, 42, 68, 0.12) 100%); border: 1px solid var(--border-color); border-radius: var(--radius-md); padding: 1.1rem 1.4rem; margin: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                        <div>
+                            <span style="font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: var(--gold-primary); display: flex; align-items: center; gap: 0.5rem;">
+                                <span>🔀</span> A BIFURCAÇÃO DA ESPECIALIZAÇÃO (A PARTIR DE NEX 40%)
+                            </span>
+                            <p style="font-size: 0.85rem; color: #ddd; margin: 0.25rem 0 0 0;">
+                                Em <strong>NEX 40%</strong>, o Maestro deve escolher entre seguir a <strong>Trilha Principal</strong> (Inspiração, Buffs &amp; Purificação) ou especializar-se na <strong>Subtrilha Variante: Guardião das Notas</strong> (Debuffs, Atordoamento &amp; Colapso Mental):
+                            </p>
+                        </div>
+                        <span class="badge badge-gold" style="font-size: 0.75rem;">Evolução 40% / 65% / 99%</span>
+                    </div>
+
+                    <!-- GRID COMPARATIVO: PRINCIPAL VS SUBTRILHA -->
+                    <div class="grid-2">
+                        <!-- COLUNA 1: TRILHA PRINCIPAL -->
+                        <div style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(207, 168, 88, 0.3); border-radius: var(--radius-md); padding: 1.25rem;">
+                            <div style="background: rgba(207, 168, 88, 0.12); border: 1px solid var(--gold-primary); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <strong style="color: var(--gold-primary); font-family: 'Cinzel', serif; font-size: 0.95rem;">RAMO A: TRILHA PRINCIPAL</strong>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #fff; background: rgba(207, 168, 88, 0.3); padding: 2px 6px; border-radius: 3px;">Buffs &amp; Purificação</span>
+                            </div>
+                            <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 1rem; font-style: italic;">
+                                Foco na regência harmônica da equipe, acelerando ataques, elevando defesas e expurgando perturbações mentais.
+                            </p>
+
+                            <!-- NEX 40% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 40% — Clímax Crescente (Sincronia)</span>
+                                    <span class="ability-cost">3 PE • Padrão</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Você inflama a precisão do grupo. Dois aliados em alcance curto recebem imediatamente <strong>+1d em testes de ataque e +2 na Margem de Ameaça</strong> para seus próximos ataques, tornando-se algozes perfeitos.
+                                </p>
+                            </div>
+
+                            <!-- NEX 65% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 65% — Sinfonia de Ruptura</span>
+                                    <span class="ability-cost">5 PE • Padrão</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Pulso purificador da orquestra. Cancela no mesmo instante as condições <i>Abalado, Apavorado, Enlouquecendo, Fascinado</i> ou <i>Pasmo</i> de todos os aliados em alcance médio, restaurando a lucidez sob o fogo cruzado.
+                                </p>
+                            </div>
+
+                            <!-- NEX 99% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 99% — Ragnarok em Uníssono</span>
+                                    <span class="ability-cost">10 PE • Completa</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    A sinfonia do fim do mundo. Enquanto sustentar a música (Ação de Movimento por rodada), todos os aliados em alcance médio ganham <strong>Imunidade a Medo</strong>, <strong>+5 na Defesa</strong> e <strong>uma Ação de Movimento adicional em todos os seus turnos</strong>.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- COLUNA 2: SUBTRILHA VARIANTE -->
+                        <div style="background: rgba(22, 12, 16, 0.75); border: 1px solid rgba(255, 42, 68, 0.35); border-radius: var(--radius-md); padding: 1.25rem;">
+                            <div style="background: rgba(255, 42, 68, 0.12); border: 1px solid var(--crimson-accent); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <strong style="color: var(--crimson-accent); font-family: 'Cinzel', serif; font-size: 0.95rem;">RAMO B: SUBTRILHA VARIANTE</strong>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #fff; background: rgba(255, 42, 68, 0.3); padding: 2px 6px; border-radius: 3px;">Guardião das Notas</span>
+                            </div>
+                            <p style="font-size: 0.84rem; color: #fca5a5; margin-bottom: 1rem; font-style: italic;">
+                                "Se a trilha principal inspira, a subtrilha destrói." Converte as frequências sonoras em puro sofrimento acústico e desorientação para as ameaças do Outro Lado.
+                            </p>
+
+                            <!-- NEX 40% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 40% — Dissonância Penal</span>
+                                    <span class="ability-cost">2 PE • Padrão</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Um alvo escolhido em alcance médio sofre um choque auditivo violento. Ele deve realizar um teste de <strong>Vontade (DT Ocultismo)</strong>. Se falhar, mergulha em vertigem absoluta, ficando <strong>Fraco e Lento</strong> até o final do seu próximo turno.
+                                </p>
+                            </div>
+
+                            <!-- NEX 65% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 65% — Ressonância Corrupta</span>
+                                    <span class="ability-cost">5 PE • Padrão</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Onda sônica ensurdecedora contra até <strong>3 criaturas em alcance médio</strong>. Cada alvo deve fazer um teste de Vontade (DT Ocultismo); os que falharem adquirem a temível condição <strong>Pasmo</strong> (incapazes de realizar ações padrão) pela próxima rodada inteira.
+                                </p>
+                            </div>
+
+                            <!-- NEX 99% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 99% — Réquiem da Loucura Absoluta</span>
+                                    <span class="ability-cost">10 PE • Completa</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Você entoa a nota final do universo. Todas as criaturas inimigas no campo de batalha devem fazer um teste de Vontade. Quem falhar enlouquece imediatamente (atacando aliados ou o nada) e sofre <strong>10d10 de Dano Mental</strong> letal. Quem passar sofre metade do dano e fica Pasmo por 1 rodada.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRILHA 2: COLOSSO DOS CORVOS -->
+            <div id="subtab-trilha2" class="tab-content">
+                <div class="stat-block">
+                    <div class="stat-header">
+                        <h3 class="stat-title">TRILHA COMBATENTE: ASSALTO — O COLOSSO DOS CORVOS</h3>
+                        <span class="badge badge-crimson">Linha de Frente, Blindagem Rúnica &amp; Artilharia</span>
+                    </div>
+                    <blockquote style="margin: 0 0 1.25rem 0; font-size: 0.92rem; border-left-color: var(--crimson-accent);">
+                        "Somente na morte o nosso dever termina. Quando a carne falha, o metal herda a guerra."
+                    </blockquote>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.25rem;">
+                        Uma fusão entre a brutalidade dos super-soldados de cerco e a blindagem regenerativa de alta tecnologia. O Colosso veste um Exoesqueleto-Sarcófago de carapaça rúnica impenetrável que absorve choques catastróficos e esmaga o inimigo com servomotores rituais.
+                    </p>
+
+                    <!-- NEX 10% (BASE COMUM) -->
+                    <div class="ability-box" style="border-left-color: var(--crimson-accent); background: rgba(255, 42, 68, 0.04); margin-bottom: 1.5rem;">
+                        <div class="ability-header">
+                            <span class="ability-name">NEX 10% — Fusão Metálica &amp; Armadura "Dreadnought" Mjolnir</span>
+                            <span class="ability-cost">Passivo / 2 PE • Movimento</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0;">
+                            Você veste o seu <strong>Exoesqueleto Rúnico</strong> (Proteção Pesada especial: Defesa +5, Penalidade -2, <strong>sem perda de deslocamento</strong>) com <strong>RD 2 física passiva</strong> contra corte, impacto e perfuração.<br/>
+                            • <i>Escudo de Força Arcano:</i> No início de cada cena, você ganha <strong>PV Temporários iguais a 10 + seu Vigor</strong>. Se o escudo quebrar (chegar a 0 PV temporário), você pode gastar 2 PE e uma Ação de Movimento para reiniciar os reatores e restaurá-lo integralmente (1x por rodada).
+                        </p>
+                    </div>
+
+                    <!-- BANNER DA BIFURCAÇÃO EM NEX 40% -->
+                    <div style="background: linear-gradient(135deg, rgba(255, 42, 68, 0.15) 0%, rgba(207, 168, 88, 0.12) 100%); border: 1px solid var(--border-crimson); border-radius: var(--radius-md); padding: 1.1rem 1.4rem; margin: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                        <div>
+                            <span style="font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: #ff7788; display: flex; align-items: center; gap: 0.5rem;">
+                                <span>🔀</span> A BIFURCAÇÃO DA ESPECIALIZAÇÃO (A PARTIR DE NEX 40%)
+                            </span>
+                            <p style="font-size: 0.85rem; color: #ddd; margin: 0.25rem 0 0 0;">
+                                Em <strong>NEX 40%</strong>, o Colosso escolhe entre a <strong>Trilha Principal: O Motor de Cerco</strong> (Tanque de Guerra, RD Absurda &amp; Investidas) ou a <strong>Subtrilha Variante: O Olho dos Corvos</strong> (Precisão Cirúrgica, Sensores &amp; Artilharia):
+                            </p>
+                        </div>
+                        <span class="badge badge-crimson" style="font-size: 0.75rem;">Evolução 40% / 65% / 99%</span>
+                    </div>
+
+                    <!-- GRID COMPARATIVO: PRINCIPAL VS SUBTRILHA -->
+                    <div class="grid-2">
+                        <!-- COLUNA 1: TRILHA PRINCIPAL -->
+                        <div style="background: rgba(22, 12, 16, 0.75); border: 1px solid rgba(255, 42, 68, 0.35); border-radius: var(--radius-md); padding: 1.25rem;">
+                            <div style="background: rgba(255, 42, 68, 0.12); border: 1px solid var(--crimson-accent); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <strong style="color: var(--crimson-accent); font-family: 'Cinzel', serif; font-size: 0.95rem;">RAMO A: TRILHA PRINCIPAL</strong>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #fff; background: rgba(255, 42, 68, 0.3); padding: 2px 6px; border-radius: 3px;">O Motor de Cerco</span>
+                            </div>
+                            <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 1rem; font-style: italic;">
+                                Foco em esmagamento corpo a corpo, interceptação de dano aliado e sobrevivência extrema até as últimas consequências.
+                            </p>
+
+                            <!-- NEX 40% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 40% — Potência Hidráulica &amp; Fúria Astartes</span>
+                                    <span class="ability-cost">Passivo</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Ataques corpo a corpo causam <strong>+1d8 de dano extra de Sangue/Impacto</strong>. Em <i>Investida</i>, o impacto no solo estilhaça o terreno e <strong>dobra esse bônus (+2d8)</strong>. Ao reduzir uma criatura a 0 PV, você recupera PVs temporários iguais ao seu Vigor. Ganha proficiência com Espadas Pesadas Serrilhadas (Chainswords).
+                                </p>
+                            </div>
+
+                            <!-- NEX 65% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 65% — Caminho da Aberração (Protocolo Anjo da Morte)</span>
+                                    <span class="ability-cost">2 ou 3 PE • Reação</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Penalidade da armadura cai para 0 e a <strong>RD física passiva aumenta para 5 contra todos os tipos de dano</strong>. Como <i>Reação</i>, gasta 2 PE para ganhar <strong>+5 RD</strong> contra um ataque, ou 3 PE para ativar a "Blindagem de Adamantium", saltando na frente de um aliado em alcance curto para interceptar o ataque com <strong>+10 RD</strong>.
+                                </p>
+                            </div>
+
+                            <!-- NEX 99% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--crimson-accent);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 99% — O Sarcófago Imortal ("Na Morte, Eu Ainda Sirvo")</span>
+                                    <span class="ability-cost">Passivo Supremo</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Sua RD física natural torna-se 10 e você é imune a <i>Agarrado</i> e <i>Lento</i>. Se você for reduzido a 0 PV e fosse morrer, os circuitos assumem o seu sistema nervoso: você <strong>ignora Morrendo e continua lutando por 3 rodadas completas com imunidade total a todos os danos e condições paranormais</strong>. Ao fim da 3ª rodada, o sarcófago desliga.
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- COLUNA 2: SUBTRILHA VARIANTE -->
+                        <div style="background: rgba(14, 18, 28, 0.75); border: 1px solid rgba(207, 168, 88, 0.35); border-radius: var(--radius-md); padding: 1.25rem;">
+                            <div style="background: rgba(207, 168, 88, 0.12); border: 1px solid var(--gold-primary); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <strong style="color: var(--gold-primary); font-family: 'Cinzel', serif; font-size: 0.95rem;">RAMO B: SUBTRILHA VARIANTE</strong>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #fff; background: rgba(207, 168, 88, 0.3); padding: 2px 6px; border-radius: 3px;">O Olho dos Corvos</span>
+                            </div>
+                            <p style="font-size: 0.84rem; color: #fde68a; margin-bottom: 1rem; font-style: italic;">
+                                Plataforma de execução tática. Troca a absorção bruta por sensores rituais do Véu, precisão cirúrgica de tiro e marcação de alvos para aniquilação.
+                            </p>
+
+                            <!-- NEX 40% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 40% — Interface Neural &amp; Mira HUD Automatizada</span>
+                                    <span class="ability-cost">2 PE • Ataque à Distância</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Seu capacete ganha sensores do Véu: garante <strong>+5 em Percepção, +5 em Iniciativa e ignora Camuflagem Leve</strong>. Gastando 2 PE antes de atacar à distância, você <strong>dobra a Margem de Ameaça do ataque</strong> e <strong>ignora até 10 pontos da RD passiva</strong> do alvo.
+                                </p>
+                            </div>
+
+                            <!-- NEX 65% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 65% — Marcação de Extermínio &amp; Suporte Tático</span>
+                                    <span class="ability-cost">3 PE • Ação de Movimento</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    O Olho pinta o alvo para a morte. Gastando 3 PE, você marca uma criatura até o fim da cena: seus ataques contra ela causam <strong>+2d8 de dano extra</strong> e você <strong>soma seu valor em Percepção diretamente nas rolagens de dano</strong>. Pode gastar Reação para conceder bônus de Defesa e leitura de flancos a aliados adjacentes.
+                                </p>
+                            </div>
+
+                            <!-- NEX 99% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 99% — Aniquilação Orbital ("Um Tiro, Uma Morte")</span>
+                                    <span class="ability-cost">10 PE • Ação Completa (1x/cena)</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Você sincroniza os sensores da armadura com a fenda do Véu. O próximo disparo à distância tem <strong>acerto automático garantido</strong>, ignorando completamente qualquer Defesa e RD da criatura. O <strong>dano final da arma é multiplicado por 5</strong>, e o alvo deve passar em Fortitude extrema ou é <strong>instantaneamente desintegrado</strong>.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- TRILHA 3: ENGENHEIRO DO VÉU -->
+            <div id="subtab-trilha3" class="tab-content">
+                <div class="stat-block">
+                    <div class="stat-header">
+                        <h3 class="stat-title">TRILHA ESPECIALISTA: ENGENHEIRO DO VÉU</h3>
+                        <span class="badge badge-cyan">Construtor de Autômatos, Drones &amp; Controle Remoto</span>
+                    </div>
+                    <blockquote style="margin: 0 0 1.25rem 0; font-size: 0.92rem; border-left-color: var(--cyan-veil);">
+                        "Nenhum sangue precisa ser derramado se a máquina puder sangrar no seu lugar."
+                    </blockquote>
+                    <p style="font-size: 0.95rem; margin-bottom: 1.25rem;">
+                        A apoteose da mecatrônica mística e da robótica arcana. O Engenheiro espalha drones e construtos mecânicos pelo mapa, controlando-os com frações de intelecto. Eles deixam de ser meras ferramentas e passam a atuar como parceiros letais de campo.
+                    </p>
+
+                    <!-- NEX 10% (BASE COMUM) -->
+                    <div class="ability-box" style="border-left-color: var(--cyan-veil); background: rgba(0, 210, 255, 0.04); margin-bottom: 1.5rem;">
+                        <div class="ability-header">
+                            <span class="ability-name">NEX 10% — Lançamento Tático: Sonda Batedora</span>
+                            <span class="ability-cost">Ação de Movimento</span>
+                        </div>
+                        <p style="font-size: 0.88rem; margin: 0;">
+                            Você implanta em campo uma Sonda Batedora voadora (Tamanho Minúsculo, Deslocamento 9m, Defesa 15, PV igual a 3x seu NEX). Com uma Ação de Movimento, você enxerga pelos sensores dela, recebendo <strong>+5 de bônus passivo em Investigação e Percepção</strong> e podendo rolar testes como se estivesse na posição exata da sonda.
+                        </p>
+                    </div>
+
+                    <!-- BANNER DA BIFURCAÇÃO EM NEX 40% -->
+                    <div style="background: linear-gradient(135deg, rgba(0, 210, 255, 0.15) 0%, rgba(207, 168, 88, 0.12) 100%); border: 1px solid rgba(0, 210, 255, 0.35); border-radius: var(--radius-md); padding: 1.1rem 1.4rem; margin: 1.5rem 0; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 0.75rem;">
+                        <div>
+                            <span style="font-family: 'Cinzel', serif; font-size: 1.05rem; font-weight: 700; color: var(--cyan-veil); display: flex; align-items: center; gap: 0.5rem;">
+                                <span>🔀</span> A BIFURCAÇÃO DA ESPECIALIZAÇÃO (A PARTIR DE NEX 40%)
+                            </span>
+                            <p style="font-size: 0.85rem; color: #ddd; margin: 0.25rem 0 0 0;">
+                                Em <strong>NEX 40%</strong>, o Engenheiro escolhe entre a <strong>Trilha Principal: O Fabricante de Suporte</strong> (Paramédicos Rúnicos &amp; Construto do Fim) ou a <strong>Subtrilha Variante: Engenheiro de Assalto</strong> (Drones Agressivos, Artilharia &amp; Protocolo Titã):
+                            </p>
+                        </div>
+                        <span class="badge badge-cyan" style="font-size: 0.75rem;">Evolução 40% / 65% / 99%</span>
+                    </div>
+
+                    <!-- GRID COMPARATIVO: PRINCIPAL VS SUBTRILHA -->
+                    <div class="grid-2">
+                        <!-- COLUNA 1: TRILHA PRINCIPAL -->
+                        <div style="background: rgba(14, 20, 30, 0.75); border: 1px solid rgba(0, 210, 255, 0.35); border-radius: var(--radius-md); padding: 1.25rem;">
+                            <div style="background: rgba(0, 210, 255, 0.12); border: 1px solid var(--cyan-veil); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <strong style="color: var(--cyan-veil); font-family: 'Cinzel', serif; font-size: 0.95rem;">RAMO A: TRILHA PRINCIPAL</strong>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #fff; background: rgba(0, 210, 255, 0.3); padding: 2px 6px; border-radius: 3px;">Fabricante de Suporte</span>
+                            </div>
+                            <p style="font-size: 0.84rem; color: var(--text-muted); margin-bottom: 1rem; font-style: italic;">
+                                Foco em cura tática, cobertura blindada no mapa, aprisionamento mecânico de alvos e o colossal Gólem Ômega.
+                            </p>
+
+                            <!-- NEX 40% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 40% — Rede Tática de Apoio (Autômato Suporte)</span>
+                                    <span class="ability-cost">2 PE • Ação de Movimento</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Você fabrica uma Unidade de Suporte Paramédica (Tamanho Pequeno, Defesa 18). Gastando 2 PE e Ação de Movimento para comandá-la, ela injeta estabilizadores num aliado adjacente, recuperando <strong>2d8 + Intelecto PV</strong> (limite de 1 uso por aliado por cena).
+                                </p>
+                            </div>
+
+                            <!-- NEX 65% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 65% — IA Comportamental &amp; Supressão Total</span>
+                                    <span class="ability-cost">3 PE • Ação Padrão</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Seus robôs ganham uma <strong>Ação de Movimento livre própria</strong> por rodada. Gastando 3 PE, você ordena Supressão Total: o autômato avança e realiza a manobra <i>Agarrar</i> com Lacres Metálicos (usando Intelecto no lugar de Força). Se vencer, impõe a condição <strong>Imóvel</strong>.
+                                </p>
+                            </div>
+
+                            <!-- NEX 99% PRINCIPAL -->
+                            <div class="ability-box" style="border-left-color: var(--cyan-veil);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 99% — O Construto do Fim (Gólem Ômega)</span>
+                                    <span class="ability-cost">5 PE • Ação Completa</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Surge no mapa o Gólem Ômega (Tamanho Grande, Defesa 25, PV 4x seu NEX, concedendo Cobertura Total). A carcaça abre e dispara o <strong>Canhão de Frequência do Véu</strong>: cone arrasador causando <strong>20d10 de dano misto de Energia e Conhecimento</strong> (Fortitude DT Intelecto reduz à metade).
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- COLUNA 2: SUBTRILHA VARIANTE -->
+                        <div style="background: rgba(22, 16, 12, 0.75); border: 1px solid rgba(207, 168, 88, 0.35); border-radius: var(--radius-md); padding: 1.25rem;">
+                            <div style="background: rgba(207, 168, 88, 0.12); border: 1px solid var(--gold-primary); border-radius: var(--radius-sm); padding: 0.6rem 0.9rem; margin-bottom: 1rem; display: flex; align-items: center; justify-content: space-between;">
+                                <strong style="color: var(--gold-primary); font-family: 'Cinzel', serif; font-size: 0.95rem;">RAMO B: SUBTRILHA VARIANTE</strong>
+                                <span style="font-family: 'JetBrains Mono', monospace; font-size: 0.7rem; color: #fff; background: rgba(207, 168, 88, 0.3); padding: 2px 6px; border-radius: 3px;">Engenheiro de Assalto</span>
+                            </div>
+                            <p style="font-size: 0.84rem; color: #fde68a; margin-bottom: 1rem; font-style: italic;">
+                                O caminho das armas autônomas agressivas. Seus drones deixam de ser ferramentas de apoio e tornam-se máquinas de retaliação e aniquilação visceral.
+                            </p>
+
+                            <!-- NEX 40% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 40% — Robô de Batalha (Lâminas de Alta Frequência)</span>
+                                    <span class="ability-cost">2 PE • Ação de Movimento</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Em vez de cura, você fabrica Máquinas de Dano Brutal. Com 2 PE e Ação de Movimento, o autômato avança e desfere um golpe corpo a corpo (rola Luta usando o seu bônus de Intelecto no lugar de Força), causando <strong>2d8 + Intelecto de dano de Impacto ou Corte</strong>.
+                                </p>
+                            </div>
+
+                            <!-- NEX 65% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 65% — Artilharia Autônoma de Área</span>
+                                    <span class="ability-cost">Passivo / 3 PE • Padrão</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Todos os seus construtos recebem <strong>+2 de bônus passivo em testes de ataque</strong>. Gastando 3 PE e uma Ação Padrão, seu drone dispara uma salva de micro-mísseis rúnicos em Área (cone de 6m ou linha de 9m) causando <strong>6d8 de dano de impacto e fogo</strong> (Reflexos reduz à metade).
+                                </p>
+                            </div>
+
+                            <!-- NEX 99% SUBTRILHA -->
+                            <div class="ability-box" style="border-left-color: var(--gold-primary);">
+                                <div class="ability-header">
+                                    <span class="ability-name">NEX 99% — Protocolo Titã (A Máquina do Fim do Mundo)</span>
+                                    <span class="ability-cost">10 PE • Ação Completa</span>
+                                </div>
+                                <p style="font-size: 0.86rem; margin: 0;">
+                                    Seu Gólem de combate se torna um titã de esmagamento contínuo com 4 braços mecânico-rituais. Ele avança e desfere <strong>4 ataques consecutivos e avassaladores</strong> (cada um causando <strong>5d10 de dano</strong>). A cada acerto consecutivo no mesmo alvo, o próximo ataque ganha <strong>+1 no multiplicador de Crítico</strong>!
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ORIGEM: MARCADO PELOS CORVOS -->
+            <div id="subtab-origem" class="tab-content">
+                <div class="stat-block" style="border-color: var(--gold-primary);">
+                    <div class="stat-header">
+                        <h3 class="stat-title">ORIGEM EXCLUSIVA: MARCADO PELOS CORVOS</h3>
+                        <span class="badge badge-gold">Origem de Personagem • Suplemento de Organizações</span>
+                    </div>
+
+                    <blockquote style="margin: 1.25rem 0;">
+                        "Desde cedo, algo observava você nos lugares onde ninguém mais olhava — no topo dos postes sob tempestades, nas janelas escurecidas, no reflexo das poças de chuva. Um olhar paciente, calculista e antigo. Você não encontrou os Corvos. Foram eles que encontraram você."
+                    </blockquote>
+
+                    <div class="grid-2">
+                        <div class="info-card">
+                            <div class="card-label">Perícias Treinadas</div>
+                            <div class="card-value" style="font-size: 1.15rem; color: #fff;">Ocultismo & Artes</div>
+                            <p class="card-desc">Sua mente foi calibrada na infância para compreender símbolos arcanos proibidos e expressar estabilização emocional através da música ou escultura.</p>
+                        </div>
+
+                        <div class="info-card" style="border-color: var(--gold-primary);">
+                            <div class="card-label">Poder de Origem</div>
+                            <div class="card-value" style="font-size: 1.15rem; color: var(--gold-primary);">Direito do Corvo</div>
+                            <p class="card-desc">
+                                Uma vez por cena, ao conjurar qualquer versão <strong>Aprimorada</strong> de um ritual conhecido, você pode optar por não pagar nada do custo em PE. Ao invés disso, o ritual é canalizado diretamente através do tecido da sua vitalidade: você sofre o custo diretamente em <strong>Dano de PV</strong> (1d4 PV por círculo do ritual), preservando seus pontos de esforço para continuar no combate.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer style="text-align: center; padding: 3rem 0; border-top: 1px solid var(--border-color); color: var(--text-muted); font-size: 0.85rem;">
+            <p>Dossiê Seita dos Corvos • Adaptado para o Sistema de <strong>Ordem Paranormal RPG</strong> (Sobrevivendo ao Horror).</p>
+            <p style="font-size: 0.75rem; opacity: 0.7; margin-top: 0.25rem;">"O Corvo observa. O Corvo julga. O Corvo age."</p>
+        </footer>
+    </main>
+</div>
+
+<!-- Back to Top Button -->
+<button class="back-to-top" id="backToTop" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Voltar ao Topo">
+    ▲
+</button>
+
+<script>
+    // Tab switching function
+    function switchTab(evt, tabId) {
+        const parent = evt.currentTarget.parentElement;
+        const buttons = parent.querySelectorAll('.tab-btn');
+        buttons.forEach(btn => btn.classList.remove('active'));
+        evt.currentTarget.classList.add('active');
+
+        // Find sibling tab content area
+        const container = parent.parentElement;
+        const contents = container.querySelectorAll(':scope > .tab-content');
+        contents.forEach(content => content.classList.remove('active'));
+
+        const target = document.getElementById(tabId);
+        if (target) {
+            target.classList.add('active');
+        }
+    }
+
+    // Interactive accordion toggle
+    document.querySelectorAll('.accordion-header').forEach(header => {
+        header.addEventListener('click', () => {
+            const item = header.parentElement;
+            item.classList.toggle('open');
+        });
+    });
+
+    // Back to top visibility & Scrollspy
+    const backToTop = document.getElementById('backToTop');
+    const navItems = document.querySelectorAll('.nav-item');
+    const sections = document.querySelectorAll('.org-section');
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 400) {
+            backToTop.classList.add('visible');
+        } else {
+            backToTop.classList.remove('visible');
+        }
+
+        // Active scrollspy on sidebar
+        let currentSec = '';
+        sections.forEach(sec => {
+            const top = sec.offsetTop - 150;
+            if (window.scrollY >= top) {
+                currentSec = sec.getAttribute('id');
+            }
+        });
+
+        navItems.forEach(item => {
+            item.classList.remove('active');
+            const link = item.querySelector('a');
+            if (link && link.getAttribute('href') === '#' + currentSec) {
+                item.classList.add('active');
+            }
+        });
+    });
+
+    // Real-time Sidebar Search Filter
+    const searchInput = document.getElementById('searchInput');
+    const navList = document.getElementById('navList');
+
+    searchInput.addEventListener('input', (e) => {
+        const query = e.target.value.toLowerCase();
+        const items = navList.querySelectorAll('.nav-item');
+        items.forEach(item => {
+            const text = item.textContent.toLowerCase();
+            if (text.includes(query)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
