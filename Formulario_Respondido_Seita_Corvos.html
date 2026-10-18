@@ -3,155 +3,58 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dossiê Confidencial - Seita dos Corvos</title>
+    <title>Formulário · Seita dos Corvos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IM+Fell+English:ital@0;1&family=Spectral:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700;900&family=Inter:wght@300;400;600&display=swap');
-
+        /* Mesmo papel queimado do dossiê principal. Sempre escuro. */
         :root {
-            --bg-color: #050505;
-            --text-color: #d1d5db;
-            --accent-color: #ff3333; /* Crimson Red */
-            --accent-gold: #cfa858; /* Antique Gold */
-            --border-color: rgba(207, 168, 88, 0.3);
-            --quote-bg: rgba(255, 51, 51, 0.05);
+            color-scheme: dark;
+            --papel: #16140F; --papel3: #211E18;
+            --tinta: #E6DFD0; --tinta2: #BAB2A3; --tinta3: #8C8475;
+            --regua: #3E392F; --carimbo: #D45B45;
+            --fell: 'IM Fell English', Georgia, serif;
+            --serif: 'Spectral', Georgia, serif;
+            --maq: 'Courier Prime', 'Courier New', monospace;
         }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 28px 16px 80px; background: var(--papel); color: var(--tinta); font: 400 18px/1.62 var(--serif); -webkit-font-smoothing: antialiased; }
+        ::selection { background: var(--tinta); color: var(--papel); }
+        a { color: var(--carimbo); text-underline-offset: 3px; }
+        a:hover { color: var(--tinta); }
+        a:focus-visible { outline: 2px solid var(--carimbo); outline-offset: 3px; }
 
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            background-image: radial-gradient(circle at 50% 0%, rgba(255, 51, 51, 0.15) 0%, rgba(0,0,0,0) 50%);
-            color: var(--text-color);
-            line-height: 1.7;
-            margin: 0;
-            padding: 3rem 1rem;
-            animation: fadeIn 1s ease-in;
-        }
+        .topo { max-width: 760px; margin: 0 auto 40px; display: flex; flex-wrap: wrap; justify-content: space-between; gap: 6px 20px; padding-bottom: 10px; border-bottom: 1px solid var(--tinta); font: 400 14px var(--maq); color: var(--tinta3); }
+        .container { max-width: 760px; margin: 0 auto; }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        .carimbo { display: inline-block; margin: 0 0 14px; padding: 4px 10px 2px; border: 2px solid var(--carimbo); color: var(--carimbo); font: 700 15px var(--maq); letter-spacing: .14em; text-transform: uppercase; transform: rotate(-2.5deg); opacity: .85; }
+        h1 { font: 400 clamp(40px, 7vw, 64px)/1.02 var(--fell); margin: 0 0 30px; }
+        h3 { font: 400 25px/1.25 var(--fell); margin: 52px 0 14px; padding-top: 12px; border-top: 1px solid var(--tinta); }
+        h4 { font: 700 14px var(--maq); text-transform: uppercase; letter-spacing: .04em; color: var(--carimbo); margin: 26px 0 6px; }
+        p { margin: 0 0 14px; }
+        b, strong { font-weight: 600; }
+        blockquote { margin: 24px 0; padding: 2px 0 2px 18px; border-left: 1px solid var(--tinta); font-style: italic; color: var(--tinta2); }
+        hr { border: 0; border-top: 3px double var(--tinta); margin: 48px 0; }
+        ul, ol { margin: 0 0 16px; padding-left: 22px; }
+        li { margin-bottom: 8px; }
+        li::marker { color: var(--tinta3); }
 
-        .container {
-            max-width: 850px;
-            margin: 0 auto;
-            background-color: rgba(15, 15, 15, 0.95);
-            padding: 4rem;
-            border-radius: 4px;
-            box-shadow: 0 0 40px rgba(0, 0, 0, 0.8), inset 0 0 0 1px var(--border-color);
-            position: relative;
-        }
-        
-        .container::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; right: 0; height: 3px;
-            background: linear-gradient(90deg, transparent, var(--accent-color), transparent);
-        }
+        .mechanic-box { margin: 24px 0; padding: 16px 20px; background: var(--papel3); border: 1px solid var(--regua); }
+        .mechanic-box > :last-child { margin-bottom: 0; }
+        .enigma { margin: 20px 0; padding: 14px 18px; border-left: 3px solid var(--carimbo); background: var(--papel3); }
+        .enigma h4 { margin-top: 0; }
+        .enigma p { margin: 0; }
 
-        h1 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-gold);
-            text-transform: uppercase;
-            letter-spacing: 4px;
-            text-align: center;
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 1.5rem;
-            margin-bottom: 2.5rem;
-            text-shadow: 0 0 15px rgba(207, 168, 88, 0.3);
-        }
-
-        h3 {
-            font-family: 'Cinzel', serif;
-            color: var(--accent-color);
-            margin-top: 3.5rem;
-            border-bottom: 1px solid rgba(255, 51, 51, 0.3);
-            padding-bottom: 0.5rem;
-            font-size: 1.5rem;
-            letter-spacing: 1px;
-            text-shadow: 0 0 10px rgba(255, 51, 51, 0.2);
-        }
-
-        h4 {
-            font-family: 'Inter', sans-serif;
-            color: var(--accent-gold);
-            margin-top: 2rem;
-            margin-bottom: 0.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        p {
-            margin-bottom: 1.5rem;
-            text-align: justify;
-            font-weight: 300;
-        }
-
-        b, strong {
-            color: #fff;
-            font-weight: 600;
-        }
-
-        blockquote {
-            background-color: var(--quote-bg);
-            border-left: 3px solid var(--accent-color);
-            margin: 2.5rem 0;
-            padding: 1.5rem 2rem;
-            font-style: italic;
-            color: #e5e7eb;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-        }
-
-        hr {
-            border: 0;
-            height: 1px;
-            background: linear-gradient(90deg, transparent, var(--border-color), transparent);
-            margin: 3rem 0;
-        }
-
-        ul, ol {
-            margin-bottom: 1.5rem;
-            padding-left: 1.5rem;
-        }
-
-        li {
-            margin-bottom: 0.8rem;
-            font-weight: 300;
-        }
-
-        li b {
-            color: var(--accent-gold);
-        }
-
-        ::-webkit-scrollbar {
-            width: 8px;
-        }
-        ::-webkit-scrollbar-track {
-            background: var(--bg-color); 
-        }
-        ::-webkit-scrollbar-thumb {
-            background: var(--border-color); 
-            border-radius: 4px;
-        }
-        ::-webkit-scrollbar-thumb:hover {
-            background: var(--accent-color); 
-        }
+        @media (max-width: 640px) { body { font-size: 17px; } h3 { font-size: 22px; } .mechanic-box, .enigma { padding: 12px 14px; } }
+        @media print { :root { color-scheme: light; --papel: #fff; --papel3: #fff; --tinta: #1F1C18; --tinta2: #47423A; --tinta3: #776F63; --regua: #BDB29C; --carimbo: #9B2B1F; } body { background: #fff; } .topo { display: none; } }
     </style>
 </head>
 <body>
-    <div style="max-width: 850px; margin: 0 auto 1.5rem auto; display: flex; justify-content: space-between; align-items: center; background: rgba(20,20,20,0.95); border: 1px solid rgba(207,168,88,0.35); padding: 0.75rem 1.5rem; border-radius: 6px; box-shadow: 0 4px 15px rgba(0,0,0,0.5);">
-        <a href="index.html" style="color: #cfa858; text-decoration: none; font-weight: 600; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
-            <span>⬅️</span> Voltar ao Dossiê da Seita dos Corvos
-        </a>
-        <span style="color: #aaa; font-size: 0.8rem; font-family: 'Inter', sans-serif;">Sobrevivendo ao Horror // Documentação</span>
-    </div>
+    <nav class="topo"><a href="index.html">← Voltar ao dossiê</a><span>Sobrevivendo ao Horror · documentação</span></nav>
 
 <div class="container">
-    <h1>Formulário de Organização<br><small style="font-size: 0.6em; color: #9ca3af;">Dossiê Confidencial</small></h1>
+    <p class="carimbo">Confidencial</p>
+    <h1>Formulário de organização</h1>
 
     <blockquote>"Há sombras que não nascem da luz, mas da pura ausência dela. Nós não caçamos o absurdo; nós o orquestramos." <br>— <i>Arquivos Fragmentados do Ninho.</i></blockquote>
 
@@ -608,9 +511,9 @@
         <li><b>Presença Perturbadora:</b> NEX 55% | DT 28 | Dano Mental: 6d6 (quem passar sofre metade).</li>
     </ul>
 
-    <div style="background-color: rgba(255, 51, 51, 0.1); border-left: 4px solid #ff3333; padding: 15px; margin: 20px 0; border-radius: 0 4px 4px 0;">
-        <h4 style="margin-top: 0; color: #ff3333; font-family: 'Cinzel', serif;">Enigma do Medo</h4>
-        <p style="margin-bottom: 0;"><strong>A morte do criador</strong>, ou o <strong>Ritual de Contenção (4º Círculo de Arrependimento)</strong>. A criatura só pode ser destruída normalmente após a morte do criador. Porém, ela pode ser temporariamente contida (removendo sua imunidade na Fase 1) através de um ritual brutal desenhado no chão com sangue do criador e penas de corvos voluntários.</p>
+    <div class="enigma">
+        <h4>Enigma do Medo</h4>
+        <p><strong>A morte do criador</strong>, ou o <strong>Ritual de Contenção (4º Círculo de Arrependimento)</strong>. A criatura só pode ser destruída normalmente após a morte do criador. Porém, ela pode ser temporariamente contida (removendo sua imunidade na Fase 1) através de um ritual brutal desenhado no chão com sangue do criador e penas de corvos voluntários.</p>
     </div>
 
     <p>A criatura só pode se manifestar quando o criador é exposto a estresse espiritual intenso, ativa um ritual ou é corrompido por medo profundo. Não pode ser contida por palavras. Ela ignora o mundo — exceto seu alvo.</p>
